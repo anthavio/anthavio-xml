@@ -57,7 +57,7 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		
-		<!-- java 5 hasn't JAXB -->
+		<!-- java 5 daoesn't have JAXB -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
@@ -65,7 +65,7 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- java 5 has JAXP 1.3 -->
+		<!-- Java 5 is only JAXP 1.3 -->
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>

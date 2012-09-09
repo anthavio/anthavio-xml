@@ -12,12 +12,15 @@
 	<version />
 
 	<body>
-		<menu name="${project.name}" inherit="top">
-			<!--
-			<item name="Wiki" href="${kmx.xwiki.url}/bin/view/KnowledgeBase/aop#Hkomix-aspects" />
-			<item name="${project.ciManagement.system}" href="${project.ciManagement.url}/view/komix-libs/" />
-			<item name="${project.issueManagement.system}" href="${project.issueManagement.url}/tasks.jsp?projectId=1267174069002"/>
-			-->
+		<links>
+			<item name="${project.ciManagement.system}" href="${project.ciManagement.url}"/>
+			<item name="${project.issueManagement.system}" href="${project.issueManagement.url}"/>
+		</links>
+		
+		<menu name="${project.name}">
+			<item name="Home" href="index.html" />
+			<item name="${project.ciManagement.system}" href="${project.ciManagement.url}/view/${project.name}" />
+			<item name="${project.issueManagement.system}" href="${project.issueManagement.url}"/>
 		</menu>
 				
 		<menu ref="parent" inherit="top" />
