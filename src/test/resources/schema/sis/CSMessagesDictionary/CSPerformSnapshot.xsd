@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 2 (http://www.altova.com) by BGN (Steria Benelux SA/NV) -->
+<!-- ========================================================================= -->
+<!-- File Name : CSPerformSnapshot.xsd -->
+<!-- SIS II Messages issued by the CS-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" schemaLocation="../DataTypeDictionary/FlagDataTypes.xsd"/>
+	<xsd:element name="CSPerformSnapshot">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: CSPerformSnapshotRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CampaignMetaData" type="sisalertdt:CampaignMetaDataType"/>
+							<xsd:element name="TrackingID" type="sisdt:TrackingIDType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description : ComparisonCSMetaData includes additional meta data provided for a comparison issued by a CS</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ComparisonModifier" minOccurs="0">
+								<xsd:complexType>
+									<xsd:choice>
+										<xsd:element name="QualifierModifier" type="sisdt:QualifierModifierType"/>
+										<xsd:element name="DiscreteModifier">
+											<xsd:complexType>
+												<xsd:choice>
+													<xsd:element name="IDsToCompare">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="IdToCompare" maxOccurs="unbounded">
+																	<xsd:complexType>
+																		<xsd:choice>
+																			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+																			<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+																		</xsd:choice>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="BinaryIDsToCompare">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="BinaryIdToCompare" type="sisdt:CommonBinaryIDType" maxOccurs="unbounded"/>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:choice>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:choice>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ReferenceUBN" type="sisdt:UBNType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description : The current value of the UBN counter in the Central system.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : CSListDataDumpReports.xsd -->
+<!-- SIS II Messages issued by the CS -->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2009 -->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+	<xsd:element name="CSListDataDumpReports">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : CSListDataDumpReports</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+							<xsd:element name="Modifiers" type="sisdt:DataDumpModifierChoiceType" minOccurs="0"/>
+							<xsd:element name="AlertReports" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: Contains the list of reports for alerts with their flags.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="AlertReport" maxOccurs="unbounded">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="ReportId" type="sisdt:ReportIDType"/>
+													<xsd:element name="RecordType" type="sisdt:ST002_TypeOfRecordType"/>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="LinkReports" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: Contains the list of reports for links.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="ReportId" type="sisdt:ReportIDType" maxOccurs="unbounded"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="BinaryReports" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: Contains the list of reports for binaries.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="ReportId" type="sisdt:ReportIDType" maxOccurs="unbounded"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

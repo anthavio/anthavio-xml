@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : CSLoadLinkHistory.xsd -->
+<!-- SIS II Messages issued by the CS-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+	<xsd:element name="CSLoadLinkHistory">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:choice>
+					<xsd:element name="Response">
+						<xsd:annotation>
+							<xsd:documentation>Message Description: CSLoadLinkHistoryResponse</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="ReportID" type="sisdt:ReportIDType" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Description: This complex type contains the ID of the report that will be generated.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Report">
+						<xsd:annotation>
+							<xsd:documentation>Message Description: CSLoadLinkHistoryReport</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="MetaData" type="sisdt:ReportRefType">
+									<xsd:annotation>
+										<xsd:documentation>Element Description: This field contains the ID of the request get history.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="LinkHistory">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="LinkHistoryEntries">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="LinkHistoryEntry" maxOccurs="unbounded">
+															<xsd:complexType>
+																<xsd:complexContent>
+																	<xsd:extension base="sisalertdt:HistoryEntryType">
+																		<xsd:sequence>
+																			<xsd:element name="LinkID" type="sisdt:LinkIDType">
+																				<xsd:annotation>
+																					<xsd:documentation>Description: Unique identifier of the given link.</xsd:documentation>
+																				</xsd:annotation>
+																			</xsd:element>
+																			<xsd:element name="LinkNationalReference" type="sisdt:LinkNationalReferenceType" minOccurs="0"/>
+																			<xsd:element name="LinkedAlerts">
+																				<xsd:complexType>
+																					<xsd:sequence>
+																						<xsd:element name="SchengenID" type="sisdt:SchengenIDType" minOccurs="2" maxOccurs="unbounded"/>
+																					</xsd:sequence>
+																				</xsd:complexType>
+																			</xsd:element>
+																			<xsd:element name="InputDate" type="sisdt:TimestampType">
+																				<xsd:annotation>
+																					<xsd:documentation>Element Description: The date when the data was stored for the first time. This field will be filled by the central system.</xsd:documentation>
+																				</xsd:annotation>
+																			</xsd:element>
+																			<xsd:element name="LastModificationDate" type="sisdt:TimestampType">
+																				<xsd:annotation>
+																					<xsd:documentation>Element Description: Date of the last change of the data. This field will be filled by the central system.</xsd:documentation>
+																				</xsd:annotation>
+																			</xsd:element>
+																		</xsd:sequence>
+																	</xsd:extension>
+																</xsd:complexContent>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="ClosingDate" type="sisdt:TimestampType" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>Description: the closing date of the link history.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element name="AlertHistories">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="AlertHistory" minOccurs="2" maxOccurs="unbounded">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="AlertHistoryEntries">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="AlertHistoryEntry" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:complexContent>
+																							<xsd:extension base="sisalertdt:HistoryEntryType">
+																								<xsd:sequence>
+																									<xsd:element name="Alert" type="sisalertdt:RetAlertLoadLinkHistoryType"/>
+																								</xsd:sequence>
+																							</xsd:extension>
+																						</xsd:complexContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="ClosingDate" type="sisdt:TimestampType" minOccurs="0">
+																		<xsd:annotation>
+																			<xsd:documentation>Description: the closing date of the link history.</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

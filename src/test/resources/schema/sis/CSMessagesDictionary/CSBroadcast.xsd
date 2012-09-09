@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : CSBroadcast.xsd -->
+<!-- SIS II Messages issued by the CS-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" schemaLocation="../DataTypeDictionary/FlagDataTypes.xsd"/>
+	<xsd:element name="CSBroadcast">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Broadcast">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: CSBroadcast. A broadcast contain both the business event that has occured and the data associated in order to maintain the NS local DB. A single event can trigger multiple actions (e.g., the closure of an alert can also trigger the update/deletion of a link).</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:choice>
+							<xsd:element name="Alert" type="sisalertdt:AlertBroadcastType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: contains the information of an alert related operation.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Link" type="sislinkdt:LinkBroadcastType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: contains the information of a link related operation.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Binary" type="sisalertdt:BinaryBroadcastType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: contains the information of a binary related operation. NB: If an alert has been closed/deleted, the deletion of the associated binaries is assumed implicit and thus won't be part of the alert broadcast message.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

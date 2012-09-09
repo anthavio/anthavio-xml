@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : CSApplyDataDumpReport.xsd -->
+<!-- SIS II Messages issued by the CS-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" schemaLocation="../DataTypeDictionary/FlagDataTypes.xsd"/>
+	<xsd:element name="CSApplyDataDumpReport">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:choice>
+					<xsd:element name="Request">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : CSApplyDataDumpReportRequest</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="ReportInfo" type="sisdt:ReportRefForDataConsistencyReportType"/>
+								<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+								<xsd:element name="EntityType" type="sisdt:ReportEntityType"/>
+								<xsd:element name="ReportBounds" minOccurs="0">
+									<xsd:complexType>
+										<xsd:choice>
+											<xsd:element name="AlertBounds">
+												<xsd:complexType>
+													<xsd:complexContent>
+														<xsd:extension base="sisdt:DataDumpAlertBoundsType">
+															<xsd:sequence>
+																<xsd:element name="RecordType" type="sisdt:ST002_TypeOfRecordType"/>
+															</xsd:sequence>
+														</xsd:extension>
+													</xsd:complexContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="LinkBounds" type="sisdt:DataDumpLinkBoundsType"/>
+											<xsd:element name="BinaryBounds" type="sisdt:DataDumpBinaryBoundsType"/>
+										</xsd:choice>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Report">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : CSApplyDataDumpReportReport </xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="DataDumpResults">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+											<xsd:choice>
+												<xsd:element name="Alerts">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="Alert" type="sisalertdt:AlertRestoreType" maxOccurs="unbounded"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="Links">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="Link" type="sislinkdt:LinkRestoreType" maxOccurs="unbounded"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="Binaries">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="Binary" type="sisalertdt:BinaryRestoreType" maxOccurs="unbounded"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+											</xsd:choice>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

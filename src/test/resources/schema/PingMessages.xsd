@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:exmsg="http://example.anthavio.com/messages"
+	xmlns:exdtp="http://example.anthavio.com/types" 
+	targetNamespace="http://example.anthavio.com/messages"
+	elementFormDefault="qualified">
+
+	<import namespace="http://example.anthavio.com/types" schemaLocation="PingTypes.xsd" />
+
+	<element name="PingRequest">
+		<complexType>
+			<sequence>
+				<element name="pingData" type="exdtp:PingData">
+					<annotation>
+						<documentation>Data prichoziho pozadavku</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="PingResponse">
+		<complexType>
+			<sequence>
+				<element name="header" type="exdtp:ResponseHeader"/>
+				<element name="data">
+					<complexType>
+						<sequence>
+							<element name="pingData" type="exdtp:PingData">
+								<annotation>
+									<documentation>Kopie prichoziho pozadavku</documentation>
+								</annotation>
+							</element>
+							<element name="pongData" type="exdtp:PingData">
+								<annotation>
+									<documentation>Data odpovedi s vlastnimi udaji</documentation>
+								</annotation>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

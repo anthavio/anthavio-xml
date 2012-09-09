@@ -1,0 +1,2 @@
+org.apache.xalan.processor.TransformerFactoryImpl
+#com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl

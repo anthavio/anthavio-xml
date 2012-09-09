@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : NSPerformSnapshot.xsd -->
+<!-- SIS II Messages issued by the NS-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:sisnsmsg="http://www.europa.eu/schengen/sis/xsd/v1/nsmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/nsmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" schemaLocation="../DataTypeDictionary/FlagDataTypes.xsd"/>
+	<xsd:element name="NSPerformSnapshot">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:choice>
+					<xsd:element name="Response">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : NSPerformSnapshotResponse</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Report">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : This complex type will be used to identify the location of a generated NS-report, attached to a message.
+example : list of (shengen- and/or alerts-)ID's and hashes sent by NS for proceding a comparison. </xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="Data">
+									<xsd:annotation>
+										<xsd:documentation>Description : SnapshotData groups the parameters for a snapshot request issued by the CS</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+											<xsd:element name="SDAs" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="SDA" type="sisalertdt:SnapshotDataAlertType" maxOccurs="unbounded"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="SDLs" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="SDL" type="sislinkdt:SnapshotDataLinkType" maxOccurs="unbounded"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="SDBs" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="SDB" type="sisalertdt:SnapshotDataBinaryType" maxOccurs="unbounded"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

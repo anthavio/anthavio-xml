@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:a xmlns:x="http://example.anthavio.com/x" xmlns:y="http://example.anthavio.com/y"><!-- comment1 -->
+<y:b>Cokoliv</y:b><!--comment2--></x:a>

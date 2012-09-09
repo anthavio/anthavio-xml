@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : FlagDataTypes.xsd -->
+<!-- SIS II Element Flag Data Types-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="CommonDataTypes.xsd"/>
+	<!-- ========================================================================= -->
+	<!-- Messages Business types-->
+	<!-- ========================================================================= -->
+	<xsd:simpleType name="FlagNotificationOperation">
+		<xsd:annotation>
+			<xsd:documentation>Description: This simple type defines the possible business operations that have triggered the flag notification message. Depending on the value, the NS knows how to deal with the received data.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Create"/>
+			<xsd:enumeration value="Update"/>
+			<xsd:enumeration value="Delete"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="FlagNotificationType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the information notified when a CUD operation has or will occur on a flag.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Operation" type="sisflagdt:FlagNotificationOperation"/>
+			<xsd:element name="Data" type="sisflagdt:FlagNotificationDataType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="FlagNotificationDataType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type defines flag data notified.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FlagRequestingCountry" type="sisdt:ST001_RequestingUserType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description : defines the Flag RequestingCountry </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AlertRequestingUser" type="sisdt:ST211_TechnicalUserType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description : User which owns the corresponding alert which contains the flag. It is not present in DeleteFlagNotification</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+			<xsd:element name="ActionTobeTaken" type="sisdt:ST105_ActionToBeTakenType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description : In Create/Update it contains the AlternativeActionToBeTaken of the Flag but in the Delete it contains the Original ActionToBeTaken of the alert.
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReasonForRequest" type="sisdt:ST104_ReasonForRequestType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description :  defines the ReasonForRequest of the alert which contains the Flag</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="FlagType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type defines the content of a flag on an alert.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RequestingCountry" type="sisdt:ST001_RequestingUserType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: may not be the owner of the alert witch this flag belongs to</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AlternativeActionToBeTaken" type="sisdt:ST105_ActionToBeTakenType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: This attribute contains the definition of the action which should be taken if the wanted person/object is catched. The national system can define that the action to be taken shall be filtered (hidden to the accessing user) later on by not providing any alternativeActionToBeTaken</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

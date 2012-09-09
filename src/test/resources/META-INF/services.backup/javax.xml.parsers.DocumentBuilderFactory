@@ -1,0 +1,2 @@
+org.apache.xerces.jaxp.DocumentBuilderFactoryImpl
+#com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl

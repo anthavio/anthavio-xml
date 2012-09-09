@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 2 (http://www.altova.com) by BGN (Steria Benelux SA/NV) -->
+<!-- ========================================================================= -->
+<!-- File Name : CommonDataTypes.xsd -->
+<!-- SIS II Element Common Data Types-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<!-- ========================================================================= -->
+	<!-- Relational Domains -->
+	<!-- ========================================================================= -->
+	<xsd:simpleType name="CatalogEntryRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates an entry from a code table.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="7"/>
+			<xsd:pattern value="\d{4}\.\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="DateTimeRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a date with a time.</xsd:documentation>
+			<xsd:documentation>yyyy '-' mm '-' dd 'T' hh ':' mm ':' ss ('.' ms{3}) (zzzzzz)?</xsd:documentation>
+			<xsd:documentation> yyyy is a four digit  that represents the year;The year is between 1800 and 2050)</xsd:documentation>
+			<xsd:documentation>the remaining '-'s are separators between parts of the date portion</xsd:documentation>
+			<xsd:documentation>the first mm is a two-digit numeral that represents the month</xsd:documentation>
+			<xsd:documentation>dd is a two-digit numeral that represents the day</xsd:documentation>
+			<xsd:documentation>'T' is a separator indicating that time-of-day follows</xsd:documentation>
+			<xsd:documentation>hh is a two-digit numeral that represents the hour; '24' or more is not allowed</xsd:documentation>
+			<xsd:documentation>':' is a separator between parts of the time-of-day portion</xsd:documentation>
+			<xsd:documentation>the second mm is a two-digit numeral that represents the minute ; 60 or more is not allowed</xsd:documentation>
+			<xsd:documentation>ss is a two-integer-digit numeral that represents the whole seconds; 60 or more is not allowed</xsd:documentation>
+			<xsd:documentation>'.' ms{3} represents the fractional seconds. The number of Fractional Seconds will be 3</xsd:documentation>
+			<xsd:documentation>zzzzzz (if present) represents the timezone</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:pattern value="(18\d\d|19\d\d|20[0-4]\d|2050)\-((0[1-9]|1[0-2])\-((0[1-9]|[1-2]\d|3[0-1])))T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\.\d{3}(([\+\-]((0[0-9]|1[0-3]):[0-5][0-9]|14:00))|Z)?"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="DateRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a date.</xsd:documentation>
+			<xsd:documentation>Rule: format YYYYMMDD</xsd:documentation>
+			<xsd:documentation>Rule: DD between [00...31]</xsd:documentation>
+			<xsd:documentation>Rule: MM between [01...12]</xsd:documentation>
+			<xsd:documentation>Rule: YYYY between [1800...2050]</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:minLength value="8"/>
+			<xsd:maxLength value="8"/>
+			<xsd:pattern value="(18\d\d|19\d\d|20[0-4]\d|2050)((0[1-9]|1[0-2])((0[1-9]|[1-2]\d|3[0-1])))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="DecimalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a numeric value, which includes an integer and a decimal values. A decimal seperator is allowed, the character to be used is a point.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="CapitalAlphaNumericRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a name without blanks.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+			<xsd:pattern value="[A-Z0-9]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ExtendedNameUnicodeTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed extended unicode boat name.</xsd:documentation>
+			<xsd:documentation>Rule: Transformed version of ExtendedNameUnicode</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use: ".", "-", "/", "’", "(", ")", "?", ":", ",", "+", blank</xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[A-Z0-9a-z\.\-/'()\?:,\+&#x00C0;-&#x00D6;&#x00D8;-&#x00F6;&#x00F8;-&#x00FF;&#x0100;-&#x0137;&#x0139;-&#x0148;&#x014A;-&#x017E;&#x0386;&#x0388;-&#x038A;&#x038C;&#x038E;-&#x03A1;&#x03A3;-&#x03CE;&#x0401;-&#x040C;&#x040E;-&#x044F;&#x0451;-&#x045C;&#x045E;&#x045F;&#x046A;&#x046B;&#x0474;&#x0475;&#x0490;&#x0491; ]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ExtendedNameUnicodeOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed extended name unicode</xsd:documentation>
+			<xsd:documentation>Rule: Transformed version of ExtendedNameUnicode</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use: ".", "-", "/", "’", "(", ")", "?", ":", ",", "+", blank</xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed in the TextRD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:ExtendedNameUnicodeTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextNoBlankRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a name without blanks.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[a-zA-Z0-9\.\-/']+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="HexadecimalStringRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a hexadecimal string.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-F0-9][A-F0-9]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextNoBlankTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed name.</xsd:documentation>
+			<xsd:documentation>Rule: No Blanks are allowed</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[a-zA-Z0-9\.\-/':\?\+]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextNoBlankOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed name without blanks</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+			<xsd:documentation>Rule: No Blanks are allowed</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameFreeTextNoBlankTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed name.</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[a-zA-Z0-9\.\-/':\?\+]([a-zA-Z0-9\.\-/':\?\+ ]*[a-zA-Z0-9\.\-/':\?\+])?"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed name.</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameFreeTextTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextSerialRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a serial name.</xsd:documentation>
+			<xsd:documentation>Rule: "NAME_FREETEXT + comma + left and right bracket"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[a-zA-Z0-9\.\-/',()]([a-zA-Z0-9\.\-/',() ]*[a-zA-Z0-9\.\-/',()])?"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextSerialNoBlankRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a serial name without blanks</xsd:documentation>
+			<xsd:documentation>Rule: "NAME_FREETEXT + comma + left and right bracket"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[a-zA-Z0-9\.\-/',()]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextSerialTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed serial name.</xsd:documentation>
+			<xsd:documentation>Rule: "NAME_FREETEXT + comma + left and right bracket"</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[a-zA-Z0-9\.\-/',()\?:\+]([a-zA-Z0-9\.\-/',()\?:\+ ]*[a-zA-Z0-9\.\-/',()\?:\+])?"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextSerialOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed serial name.</xsd:documentation>
+			<xsd:documentation>Rule: "NAME_FREETEXT + comma + left and right bracket"</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameFreeTextSerialTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextSerialNoBlankTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed serial name.</xsd:documentation>
+			<xsd:documentation>Rule: No Blanks are allowed</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[a-zA-Z0-9\.\-/',()\?:\+]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameFreeTextSerialNoBlankOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed serial name.</xsd:documentation>
+			<xsd:documentation>Rule: "NAME_FREETEXT + comma + left and right bracket"</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+			<xsd:documentation>Rule: No Blanks are allowed</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameFreeTextSerialNoBlankTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates unicode name.</xsd:documentation>
+			<xsd:documentation>Rule:  Any information suitable to be input with Unicode by the participating countries. </xsd:documentation>
+			<xsd:documentation>Rule: Greek and Cyrillic alphabet characters are also included</xsd:documentation>
+			<xsd:documentation>Rule: including blanks</xsd:documentation>
+			<xsd:documentation>Rule: "," , "." , "(", ")" , "+" , ":" ,"?" are forbidden </xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z0-9a-z\-/'&#x00C0;-&#x00D6;&#x00D8;-&#x00F6;&#x00F8;-&#x00FF;&#x0100;-&#x0137;&#x0139;-&#x0148;&#x014A;-&#x017E;&#x0386;&#x0388;-&#x038A;&#x038C;&#x038E;-&#x03A1;&#x03A3;-&#x03CE;&#x0401;-&#x040C;&#x040E;-&#x044F;&#x0451;-&#x045C;&#x045E;&#x045F;&#x046A;&#x046B;&#x0474;&#x0475;&#x0490;&#x0491; ]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed unicode name.</xsd:documentation>
+			<xsd:documentation>Rule: Transformed version of NameUnicode</xsd:documentation>
+			<xsd:documentation>Rule: Additional requirement for attribute "transformed" characters permit to use:  (?), (:) and (+)</xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed</xsd:documentation>
+			<xsd:documentation>Rule: "," , "." , "(", ")"  are forbidden </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[A-Z0-9a-z\-/'\?:\+&#x00C0;-&#x00D6;&#x00D8;-&#x00F6;&#x00F8;-&#x00FF;&#x0100;-&#x0137;&#x0139;-&#x0148;&#x014A;-&#x017E;&#x0386;&#x0388;-&#x038A;&#x038C;&#x038E;-&#x03A1;&#x03A3;-&#x03CE;&#x0401;-&#x040C;&#x040E;-&#x044F;&#x0451;-&#x045C;&#x045E;&#x045F;&#x046A;&#x046B;&#x0474;&#x0475;&#x0490;&#x0491; ]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed unicode name.</xsd:documentation>
+			<xsd:documentation>Rule:  Any information suitable to be input with Unicode by the participating countries. </xsd:documentation>
+			<xsd:documentation>Rule: Greek and Cyrillic alphabet characters are also included</xsd:documentation>
+			<xsd:documentation>Rule: including blanks</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use:  (?), (:) and (+)</xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed in the TextRD</xsd:documentation>
+			<xsd:documentation>Rule: "," , "." , "(", ")"  are forbidden </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameUnicodeTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeDotTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a transformed unicode name.</xsd:documentation>
+			<xsd:documentation>Rule: Transformed version of NameUnicode</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use: (.)</xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed in the TextRD</xsd:documentation>
+			<xsd:documentation>Rule: ",", "(", ")", "?", ":" and "+" are forbidden </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+			<xsd:pattern value="[A-Z0-9a-z\.\-/'&#x00C0;-&#x00D6;&#x00D8;-&#x00F6;&#x00F8;-&#x00FF;&#x0100;-&#x0137;&#x0139;-&#x0148;&#x014A;-&#x017E;&#x0386;&#x0388;-&#x038A;&#x038C;&#x038E;-&#x03A1;&#x03A3;-&#x03CE;&#x0401;-&#x040C;&#x040E;-&#x044F;&#x0451;-&#x045C;&#x045E;&#x045F;&#x046A;&#x046B;&#x0474;&#x0475;&#x0490;&#x0491; ]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeDotOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed unicode name.</xsd:documentation>
+			<xsd:documentation>Rule:  Any information suitable to be input with Unicode by the participating countries. </xsd:documentation>
+			<xsd:documentation>Rule: Greek and Cyrillic alphabet characters are also included</xsd:documentation>
+			<xsd:documentation>Rule: including blanks</xsd:documentation>
+			<xsd:documentation>Rule: Characters permit to use: (.)</xsd:documentation>
+			<xsd:documentation>Rule: \n \r \t are not allowed in the TextRD</xsd:documentation>
+			<xsd:documentation>Rule: ",", "(", ")", "?", ":" and "+"  are forbidden </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameUnicodeDotTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeAmnestyOriginalRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed unicode name. It is specified for amnistied Data without patterns</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NameUnicodeAmnestyTransformRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NameUnicodeAmnestyTransformRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the original value of a transformed unicode name. It is specified for amnistied Data without patterns</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="510"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NumRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a numeric value.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:long">
+			<xsd:minInclusive value="0" fixed="false"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="PictureRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the picture data.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:base64Binary"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="TextRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates text.</xsd:documentation>
+			<xsd:documentation>Rule: all characters form the unicode from the participating countries</xsd:documentation>
+			<xsd:documentation>Rule: Greek and Cyrillic alphabet characters are also included</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="4000"/>
+			<xsd:pattern value="[A-Z0-9a-z\.\-/',()\?:\+&#x00C0;-&#x00D6;&#x00D8;-&#x00F6;&#x00F8;-&#x00FF;&#x0100;-&#x0137;&#x0139;-&#x0148;&#x014A;-&#x017E;&#x0386;&#x0388;-&#x038A;&#x038C;&#x038E;-&#x03A1;&#x03A3;-&#x03CE;&#x0401;-&#x040C;&#x040E;-&#x044F;&#x0451;-&#x045C;&#x045E;&#x045F;&#x046A;&#x046B;&#x0474;&#x0475;&#x0490;&#x0491; ]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="URLRD">
+		<xsd:annotation>
+			<xsd:documentation>Description: This simple contains the URL.  Used as technical link between http messages and attached FTP transferred documents.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="250"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ========================================================================= -->
+	<!-- Catalog Entry - Code Tables (Simple Mode)                                                                                                                            -->
+	<!-- ========================================================================= -->
+	<xsd:simpleType name="ST001_RequestingUserType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the user/country which the request belongs to.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST002_TypeOfRecordType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the record type of an alert.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST005_CategoryOfIdentityType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of identities of persons.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST006_NationalityType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a nationality.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST007_PersonRelatedRemarksType">
+		<xsd:annotation>
+			<xsd:documentation>Description:This field contains a remark related to a person. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST008_IdentificationMarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a identification mark which is defined in a code table.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST011_CategoryOfVehicleType">
+		<xsd:annotation>
+			<xsd:documentation>Description:This field contains one of the different categories of vehicles.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST012_MakeOfVehicleType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of vehiclemakes.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST013_ColourType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a colour(s) of an object.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST014_VehicleRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to a vehicle.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST017_CategoryOfFirearmType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of firearms.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST018_CategoryOfDocumentType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of documents.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST019_BanknoteRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to a banknote</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST020_BoatTypeOfFuelType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Contains the fuel that boat engines can use.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST021_CurrencyType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a currency which is define in a code table.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST022_CategoryOfSecurityType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of securities.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST024_CategoryOfIndustrialEquipmentType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of industrial equipment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST025_CategoryOfBoatType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of boats.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST026_CategoryOfAircraftType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of aitcrafts.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST027_BoatHullMaterialType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a material which a hull is made of.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST028_TypeOfOffenceType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a type of offence, if the alert belongs to Article 95.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST029_CategoryOfBoatEngineType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains one of the different categories of boat engines.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST031_MakeOfFirearmType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a make of firearm which is define in a code table.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST032_SecuritiesRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to a security.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST034_VINConfirmationStatusType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the VIN confirmation status. The default value is: "Not Checked". </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST037_PictureTypeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the type of a picture which is define in a code table.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST038_QualityForAutomationType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Sufficent quality for automatic comparison.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST039_QualityForUserType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Quality for human user.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST048_PersonDescriptionBuildType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the person description for the build.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST049_PersonDescriptionFacialHairType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Person description for the facial hair.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST050_PersonDescriptionFaceShapeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a person description for the face shape.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST051_PersonDescriptionHairColourType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a person description for the hair colour.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST052_PersonDescriptionHairStyleType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a person description for the hair style.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST053_PersonDescriptionEyeColourType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a person description for the eye colour.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST054_PersonDescriptionEyeTypeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a person description for the eye type.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST055_PersonDescriptionSkinColourType">
+		<xsd:annotation>
+			<xsd:documentation>Description:This field contains the person description for skin clolour. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST056_PersonDescriptionComplexionType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Contains the person description for the complexion.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST057_PersonDescriptionNoseType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This Field contains the person description for the nose.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST058_PersonDescriptionEarsType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Person description for the ears.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST059_PersonDescriptionChinType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Contains the person description for the chin.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST060_PersonDescriptionTeethType">
+		<xsd:annotation>
+			<xsd:documentation>Description:This field contains the person description for teeths.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<xsd:simpleType name="ST061_PersonDescriptionGaitType">
+		<xsd:annotation>
+			<xsd:documentation>Description: person description for the gait.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST062_AircraftRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to an aircraft.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST063_BoatRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to a boat.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST064_ContainerRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to a container.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST065_IndustrialEquipmentRelatedRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a remark related to an industrial equipment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST104_ReasonForRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the reason for the request of an user/country on which the alert is based on.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST105_ActionToBeTakenType">
+		<xsd:annotation>
+			<xsd:documentation>Description:This field contains the definition of the action which should be taken if the wanted person/object is catched.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST108_SearchModeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the search mode for names.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST110_ComparisonOriginType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the origin of a comparison identifying it as issued either by a National or the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST111_PeriodicalType">
+		<xsd:annotation>
+			<xsd:documentation>Description:Periodical of a campaign.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST114_PowerType">
+		<xsd:annotation>
+			<xsd:documentation>Description: In this code table you can find the units for the measurement power.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST115_LengthType">
+		<xsd:annotation>
+			<xsd:documentation>Description: In this code table you can find the units for the measurement length.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST118_FileTypeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a type of file.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST119_ComparisonEntryStatusType">
+		<xsd:annotation>
+			<xsd:documentation>Description:In this code table you can find the different values of a comparison entry status.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST120_EntityDiscrepancyCategoryType">
+		<xsd:annotation>
+			<xsd:documentation>Description: In this code table you can find the different values of a discrepancy category, related to an entity (e.g. : in a comparisonResults report.)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST123_KindOfDeletionType">
+		<xsd:annotation>
+			<xsd:documentation>Description: In this code table the reasons for deletion are listed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST125_TransformationQualifierType">
+		<xsd:annotation>
+			<xsd:documentation>Description: The qualifier for the identification of the transformed values.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST128_NotificationEventType">
+		<xsd:annotation>
+			<xsd:documentation>Description: In this code table you can find the notification triggering events</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST129_GenderType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates the gender of a person.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST130_MakeOfBoatEngine">
+		<xsd:annotation>
+			<xsd:documentation>Description:This table defines the possible value of a make of a boat engine.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST131_AmnestiedDataType">
+		<xsd:annotation>
+			<xsd:documentation>Description:This table defines the possible category of an alert concerning DataAmnesty.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST202_RoleType">
+		<xsd:annotation>
+			<xsd:documentation>Description: The role is a security attribute added to the USER to delimit the set of rights for a given action. The rights applicable for a given action are determined by the USER/ROLE combination. The USER has the responsibility to provide the appropriate ROLE. The ROLE is identified by the ROLE-ID (EndUser, Administrator, Security Officer, ...).</xsd:documentation>
+			<xsd:documentation>Code Table: ST202_Role</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST203_ReturnCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type represents the return code within the RCI.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST204_ErrorCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type represents the possible values of the error codes within the RCI.</xsd:documentation>
+			<xsd:documentation>Code Table: ST204_ErrorCode</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST205_WarningCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type represents the possible values of the warning codes within the RCI.</xsd:documentation>
+			<xsd:documentation>Code Table: ST205_WarningCode</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST206_InfoCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type represents the possible values of the info codes within the RCI.</xsd:documentation>
+			<xsd:documentation>Code Table: ST206_InfoCode</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST208_ContractType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the possible contract that can be called through the SIS II XSD Message.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST209_OperationType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the possible operations that can be called through the SIS II XSD Message.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ST211_TechnicalUserType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the technical user.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CatalogEntryRD"/>
+	</xsd:simpleType>
+	<!-- ========================================================================= -->
+	<!-- Catalog Entry - Code Tables (with DCIndex Attribute)                                                                                                                            -->
+	<!-- ========================================================================= -->
+	<!-- Complex Types index for DataConcistency part -->
+	<!-- ========================================================================= -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST006_NationalityIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the nationality provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST006_NationalityType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST007_PersonRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the person related remarks  provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST007_PersonRelatedRemarksType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST013_ColourIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the colour provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST013_ColourType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST014_VehicleRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the vehicle related remark provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST014_VehicleRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST019_BanknoteRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the banknote related remark  provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST019_BanknoteRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST028_TypeOfOffenceIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the type of offences provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST028_TypeOfOffenceType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST032_SecuritiesRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the security related remarks provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST032_SecuritiesRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST056_PersonDescriptionComplexionIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the complexion of a person description provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST056_PersonDescriptionComplexionType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST062_AircraftRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the aircraft related remark provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST062_AircraftRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST063_BoatRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the boat related remark provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST063_BoatRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST064_ContainerRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the container related remark provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST064_ContainerRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ST065_IndustrialEquipmentRelatedRemarkIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This table defines the industrial equipment related remark provided by the CS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sisdt:ST065_IndustrialEquipmentRelatedRemarkType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- ========================================================================= -->
+	<!-- Business Attributes Types -->
+	<!-- ========================================================================= -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="DCIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the Data Consistency index. This index determines the order of the elements of the list. Gaps in the values of DCIndexes may appear as elements are removed from the collection.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NumRD">
+			<xsd:totalDigits value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="AliasNumberType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Field which was formerly part of the SchengenID. </xsd:documentation>
+			<xsd:documentation>Rules: Meaning of the alias number :</xsd:documentation>
+			<xsd:documentation>Rule:  AliasNumber == 0000  =>  this is a real identity</xsd:documentation>
+			<xsd:documentation>Rule:  AliasNumber != 0000   =>  this is an alias</xsd:documentation>
+			<xsd:documentation>Rule: The alias numbers belonging to a specific WantedPerson cannot be doubled.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="4"/>
+			<xsd:pattern value="\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="PseudoDateType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a pseudo date.</xsd:documentation>
+			<xsd:documentation>Rule: DD between [00...31], 00 means unknown</xsd:documentation>
+			<xsd:documentation>Rule: format YYYYMMDD or YYYYMM or YYYY are allowed</xsd:documentation>
+			<xsd:documentation>Rule: MM between [00...12], 00 means unknown</xsd:documentation>
+			<xsd:documentation>Rule: YYYY between [1800...2050]</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:minLength value="4"/>
+			<xsd:maxLength value="8"/>
+			<xsd:pattern value="(18\d\d|19\d\d|20[0-4]\d|2050)((0\d|1[0-2])?|((0[1-9]|1[0-2])([0-2]\d|3[0-1]))?|(0000)?)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="PseudoDateQueryType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a pseudo date in order to make a query on a date.</xsd:documentation>
+			<xsd:documentation>Rule: DD between [00...31], 00 means unknown</xsd:documentation>
+			<xsd:documentation>Rule: format YYYYMMDD is allowed</xsd:documentation>
+			<xsd:documentation>Rule: MM between [00...12], 00 means unknown</xsd:documentation>
+			<xsd:documentation>Rule: YYYY between [1800...2050]</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:minLength value="8"/>
+			<xsd:maxLength value="8"/>
+			<xsd:pattern value="(18\d\d|19\d\d|20[0-4]\d|2050)(((0[1-9]|1[0-2])([0-2]\d|3[0-1]))|(0000))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="CommonBinaryIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the identifier of a binary for DCC Modifier.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NumRD">
+			<xsd:totalDigits value="17"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="FieldNameType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a Name of a User defined Field.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="FieldContentType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a Content of a user defined field.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:base64Binary"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="HashValueType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a hashvalue that is computed on data to be compared during the consistency check process. The content is 40 characters (i.e.160 bits) hexadecimal string</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:HexadecimalStringRD">
+			<xsd:maxLength value="40"/>
+			<xsd:minLength value="40"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="IDNumberType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains a ID number which belongs to the National ID number.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:CapitalAlphaNumericRD">
+			<xsd:minLength value="13"/>
+			<xsd:maxLength value="13"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="LinkIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Represents the reference or ID for a link.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NumRD">
+			<xsd:totalDigits value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="NumberType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Represents a Number.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NumRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ReportIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This field contains the identifier of a report and is a Number with leading zeros.</xsd:documentation>
+			<xsd:documentation> ReportID is to be 10 digits minimum. For technical reasons, All IDs are 17 digits.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:minLength value="17"/>
+			<xsd:maxLength value="17"/>
+			<xsd:pattern value="\d{17}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="TimestampType">
+		<xsd:annotation>
+			<xsd:documentation>Description:The field contains a time (date and time).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:DateTimeRD"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="YesNoType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type indicates a boolean value: 'True' = Yes and 'False'=No </xsd:documentation>
+			<xsd:documentation>Rule: only Y (Yes) or N (No) are allowed</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:boolean"/>
+	</xsd:simpleType>
+	<!-- ========================================================================= -->
+	<!-- Messages Business Aggregations -->
+	<!-- ========================================================================= -->
+	<xsd:complexType name="ReportRefType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type represents a reference to a report.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReportID" type="sisdt:ReportIDType"/>
+			<xsd:element name="RCI" type="sisdt:RCIType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ReportRefForNotificationType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type will be used to identify the location of the generated report, attached to a message. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReportID" type="sisdt:ReportIDType"/>
+			<xsd:element name="RCI" type="sisdt:RCIType"/>
+			<xsd:element name="URLs" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="URL" type="sisdt:URLType" maxOccurs="2000"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AdditionalNote" type="sisdt:AdditionalNoteType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ReportRefForDataConsistencyReportType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type will be used to identify the location of the generated report, attached to a message. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReportID" type="sisdt:ReportIDType" minOccurs="0"/>
+			<xsd:element name="RCI" type="sisdt:RCIType"/>
+			<xsd:element name="URLs" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="URL" type="sisdt:URLType" maxOccurs="2000"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AdditionalNote" type="sisdt:AdditionalNoteType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ReportAndStatisticNotificationType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type will be used to identify the location of the generated report or static, attached to a message.It is only used in the Report and Statistics contract. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="sisdt:ReportRefForNotificationType">
+				<xsd:sequence>
+					<xsd:element name="ReportName" type="sisdt:NameFreeTextOriginalRD"/>
+					<xsd:element name="LastModificationDate" type="sisdt:TimestampType" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="NationalIDNumberType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the information on a National ID Number regardless the sender.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="IdNumber" type="sisdt:IDNumberType"/>
+			<xsd:element name="AliasNumber" type="sisdt:AliasNumberType">
+				<xsd:annotation>
+					<xsd:documentation>The AliasNumber in general is not used in SIS II, it just exists due to migration reasons. It has to be set to 0000 in a CreateAlert message for a person alert, otherwise the central system will reject this message with an error.
+						</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="CompressedSchengenIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This simple type has the same content than the SchengenIDType. His presence can reduce the overhead of XML exchanges.
+A. Characters 01 to 07 : content of SchengenID.RequestingUser, left aligned, blanks completion.
+B. Characters 08 to 20 : content of SchengenID.NationalIDNumber.idNumber, left aligned, blanks completion.
+C. Characters 21 to 24 : content of SchengenID.NationalIDNumber.aliasNumber, four digits, no blank.
+D. Characters 25 to 31 : content of SchengenID.recordType, i.e. code value coming from code table ST002_TypeOfRecord.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="31"/>
+			<xsd:pattern value="\d{4}\.\d{2}[A-Z0-9]{13}\d{4}\d{4}\.\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="SchengenIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the information on an alert Schengen ID regardless the sender.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RequestingUser" type="sisdt:ST001_RequestingUserType"/>
+			<xsd:element name="NationalIDNumber" type="sisdt:NationalIDNumberType"/>
+			<xsd:element name="RecordType" type="sisdt:ST002_TypeOfRecordType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="SchengenIDIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type represents a SchengenID and is used in LinkDataTypes </xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="sisdt:SchengenIDType">
+				<xsd:attribute name="DCIndex" type="sisdt:DCIndexType" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- ========================================================================= -->
+	<!-- Technical Simple Types -->
+	<!-- ========================================================================= -->
+	<xsd:simpleType name="EndUserIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: The EndUser is the application or officer acting for a USER. The SIS II application do not manage the End-Users. It is the responsibility of the USER to authenthicate its EndUser. An EndUser-ID may be present in the message header for USER usage only. The USER has the responsibility to provide the appropriate EndUser-ID.
+</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="SystemIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: The SystemID is used for logging purposes only. It is a reference to a system, for instance a "hidden" ns. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="FieldCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type represents the description of a XML tag having failed its validation routine. It comes from the incoming message.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="MessageIDType">
+		<xsd:annotation>
+			<xsd:documentation>Rule: Contains leading zeros</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="17"/>
+			<xsd:pattern value="\d{17}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="LogicalSessionIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Identifier of the logical session.</xsd:documentation>
+			<xsd:documentation>Rule: Contains leading zeros</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="17"/>
+			<xsd:pattern value="\d{17}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="UBNType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Unique identifier of a broadcast message. It allows to track the different messages involved in the same broadcast asynchronous logical protocol. It is generated by the CS and has to be present in every message subsequent to initial broadcast message. Its value is obtained from the "LogicalSessionID" header field of the initial broadcast message.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:LogicalSessionIDType"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="URNType">
+		<xsd:annotation>
+			<xsd:documentation>Description: The Update Request Number (URN) is used to uniquely identify a CUD request sent by the NS. </xsd:documentation>
+			<xsd:documentation>Rule: Contains leading zeros</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:LogicalSessionIDType"/>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="CSURNType">
+		<xsd:annotation>
+			<xsd:documentation>Description : Concatenation of the UserID (7positions) and the LogicalSessionID (17positions) </xsd:documentation>
+			<xsd:documentation>Rule: Contains leading zeros</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="24"/>
+			<xsd:pattern value="\d{4}\.\d{19}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="URLType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This simple contains the URL.  Used as technical link between http messages and attached FTP transferred documents.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:URLRD"/>
+	</xsd:simpleType>
+	<!-- ========================================================================= -->
+	<!-- Technical Complex Types -->
+	<!-- ========================================================================= -->
+	<xsd:complexType name="HeaderType">
+		<xsd:annotation>
+			<xsd:documentation>Description: The Header of all messages send from the CS or the NS.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="MessageID" type="sisdt:MessageIDType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Unique identifier of the message. It allows to uniquely identify it in the logs. The uniqueness has to be respected at the sender level. It is responsible for it.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LogicalSessionID" type="sisdt:LogicalSessionIDType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: This element contains the unique identifier of the logical session. This has to be generated by the caller issuing the initial request message. This identifier must be unique for the caller. For more information on the logical session management, please refer to the ICD.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateTime" type="sisdt:TimestampType"/>
+			<xsd:element name="EndUserID" type="sisdt:EndUserIDType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: This element contains the identifier of the end-user. It is only used for logging purposes. Note: The messages issued by the CS uses a default value: "cssystem".</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="User" type="sisdt:ST211_TechnicalUserType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Identification of the User issuing the message.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UserRole" type="sisdt:ST202_RoleType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Role of the User.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SystemID" type="sisdt:SystemIDType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Identification of the system that sends the message</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Contract" type="sisdt:ST208_ContractType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Contract Name.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Operation" type="sisdt:ST209_OperationType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Operation Name.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="RCIType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Response Code Information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReturnCode" type="sisdt:ST203_ReturnCodeType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Return Code </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ResponseInformation" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Contains all the optional code that could be present in the RCI</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="WarningCodes" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="WarningCode" type="sisdt:ST205_WarningCodeType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="ErrorCodes" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ErrorCode" type="sisdt:ST204_ErrorCodeType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="FieldCodes" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="FieldCode" type="sisdt:FieldCodeType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="InfoCodes" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="InfoCode" type="sisdt:ST206_InfoCodeType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="FieldDiscrepancyType">
+		<xsd:annotation>
+			<xsd:documentation>Description :This complex type is used to describe a field discrepancy.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FieldID" type="sisdt:FieldNameType">
+				<xsd:annotation>
+					<xsd:documentation>The whole xsd path (with AlertDataTypes.xsd / AlertRestoreDataType or LinkDataTypes.xsd / LinkRestoreType) name of the field whose value is incorrect. Each value of the terms (coming from the various xsd tags present in the whole xsd path) composing a field id is separated by a point. If the xsd definition of the field contains attributes (e.g. precision), the main field value tag is completed by a ".value" attached to the field id (e.g. tag1.value and tag1.precision)
+  If any, "DCIndex" tag is directly replaced by the corresponding DCIndex value (e.g. tag1.0.value (if dcindex=0), instead of (tag1.value and tag1.dcindex))
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CsVal" type="sisdt:FieldContentType" minOccurs="0"/>
+			<xsd:element name="NsVal" type="sisdt:FieldContentType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="AdditionalNoteType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type is used for additional notes.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:maxLength value="1000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="DeletionNoteType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type is used for deletion notes.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:maxLength value="1000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="TimeFrameType">
+		<xsd:annotation>
+			<xsd:documentation>Description: Represents a time frame.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="beginTS" type="sisdt:TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: The begin of the time frame.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="endTS" type="sisdt:TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: The begin of the time frame.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="QualifierModifierType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type contains the modifiers for the consistency check.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EntityTypes" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: One can choose between links and alerts. If this type is completely empty alerts and links will be taken into account. If choosing alert the user can optional present alert categories. If these are empty all categories will taken into account.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="LinkType" type="sisdt:QMEntityLinkType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Description: This element has no subtypes or attributes. If links shall taken into account one has to add this LinkType as an empty tag to the XML message.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AlertType" type="sisdt:QMEntityAlertType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Countries" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: default: all</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Country" type="sisdt:ST001_RequestingUserType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="UBNRangeType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Description: Represents an UBN Range.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="StartUBN" type="sisdt:UBNType" minOccurs="0"/>
+							<xsd:element name="EndUBN" type="sisdt:UBNType" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="CreationTimeFrame" type="sisdt:TimeFrameType" minOccurs="0"/>
+				<xsd:element name="ModificationTimeFrame" type="sisdt:TimeFrameType" minOccurs="0"/>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="QMEntityLinkType"/>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="QMEntityAlertType">
+		<xsd:annotation>
+			<xsd:documentation>Element Description: By setting this element alerts will taken into account.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AlertCategories" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: By setting this element one can restrict the used alert categories.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AlertCategory" type="sisdt:ST002_TypeOfRecordType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpAlertRangeType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type contains a range of SchengenIDs defined by a startSchengenID and an endSchengenID.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StartSchengenID" type="sisdt:SchengenIDType"/>
+			<xsd:element name="EndSchengenID" type="sisdt:SchengenIDType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpLinkRangeType">
+		<xsd:annotation>
+			<xsd:documentation>Description :This type contains a range of LinkIDs defined by a startLinkID and an endLinkID</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StartLinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="EndLinkID" type="sisdt:LinkIDType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpBinaryRangeType">
+		<xsd:annotation>
+			<xsd:documentation>Description :This type contains a range of BinaryIDs defined by a startBinaryID and an endBinaryID</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StartBinaryID" type="sisdt:CommonBinaryIDType"/>
+			<xsd:element name="EndBinaryID" type="sisdt:CommonBinaryIDType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpAlertBoundsType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type contains a range of SchengenIDs defined by a startSchengenID and an endSchengenID. StartSchengenID will not be present when in the first report and EndSchengenID will not be present in the last report.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StartSchengenID" type="sisdt:SchengenIDType" minOccurs="0"/>
+			<xsd:element name="EndSchengenID" type="sisdt:SchengenIDType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpBinaryBoundsType">
+		<xsd:annotation>
+			<xsd:documentation>Description :This type contains a range of BinaryIDs defined by a startBinaryID and an endBinaryID</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StartBinaryID" type="sisdt:CommonBinaryIDType" minOccurs="0"/>
+			<xsd:element name="EndBinaryID" type="sisdt:CommonBinaryIDType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpLinkBoundsType">
+		<xsd:annotation>
+			<xsd:documentation>Description :This type contains a range of LinkIDs defined by a startLinkID and an endLinkID</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StartLinkID" type="sisdt:LinkIDType" minOccurs="0"/>
+			<xsd:element name="EndLinkID" type="sisdt:LinkIDType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="DataDumpModifierChoiceType">
+		<xsd:choice>
+			<xsd:element name="QualifierModifier" type="sisdt:QualifierModifierType"/>
+			<xsd:element name="DiscreteModifier">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="idsToCompare">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="IdToCompare" maxOccurs="unbounded">
+										<xsd:complexType>
+											<xsd:choice>
+												<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+												<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+											</xsd:choice>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="BinaryIDsToCompare">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="BinaryIdToCompare" type="sisdt:CommonBinaryIDType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="StoredTrackingID" type="sisdt:TrackingIDType"/>
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RangeModifier">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:sequence>
+							<xsd:element name="dataDumpLinkRange" type="sisdt:DataDumpLinkRangeType" minOccurs="0"/>
+							<xsd:element name="dataDumpAlertRange" type="sisdt:DataDumpAlertRangeType" minOccurs="0"/>
+						</xsd:sequence>
+						<xsd:element name="dataDumpBinaryRange" type="sisdt:DataDumpBinaryRangeType"/>
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="ReportEntityType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This simple type defines the entities who can be used as a report entity for the Data Consistency process.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Alert"/>
+			<xsd:enumeration value="Link"/>
+			<xsd:enumeration value="Binary"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:simpleType name="LinkNationalReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This type contains the national reference of a Link.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:TextRD">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+	<xsd:simpleType name="TrackingIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description:Tracking id for comparison campaigns. Provided by the central system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sisdt:NumRD">
+			<xsd:totalDigits value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

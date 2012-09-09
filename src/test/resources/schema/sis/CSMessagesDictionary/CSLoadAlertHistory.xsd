@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : CSLoadAlertHistory.xsd -->
+<!-- SIS II Messages issued by the CS-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" schemaLocation="../DataTypeDictionary/FlagDataTypes.xsd"/>
+	<xsd:element name="CSLoadAlertHistory">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the Central System.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:choice>
+					<xsd:element name="Response">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : CSLoadAlertHistoryResponse</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="ReportID" type="sisdt:ReportIDType" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Description: This complex type contains the ID of the report that will be generated.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Report">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : CSLoadAlertHistoryReport</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="MetaData" type="sisdt:ReportRefType">
+									<xsd:annotation>
+										<xsd:documentation>Description: This field contains the ID of the request get history.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="AlertHistories">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="AlertHistory" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="AlertHistoryEntries">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="AlertHistoryEntry" maxOccurs="unbounded">
+																		<xsd:annotation>
+																			<xsd:documentation>Description: Due to the fact that a SchengenID can be reused CSLoadAlertHistory may return more than one AlertHistory.</xsd:documentation>
+																		</xsd:annotation>
+																		<xsd:complexType>
+																			<xsd:complexContent>
+																				<xsd:extension base="sisalertdt:HistoryEntryType">
+																					<xsd:sequence>
+																						<xsd:element name="Alert">
+																							<xsd:complexType>
+																								<xsd:complexContent>
+																									<xsd:extension base="sisalertdt:RetAlertLoadAlertHistoryType"/>
+																								</xsd:complexContent>
+																							</xsd:complexType>
+																						</xsd:element>
+																					</xsd:sequence>
+																				</xsd:extension>
+																			</xsd:complexContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="ClosingDate" type="sisdt:TimestampType" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Description: the closing date of the alert history.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="FlagHistories" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="FlagHistory" maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="FlagHistoryEntries">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="FlagHistoryEntry" maxOccurs="unbounded">
+																								<xsd:complexType>
+																									<xsd:complexContent>
+																										<xsd:extension base="sisalertdt:HistoryEntryType">
+																											<xsd:sequence>
+																												<xsd:element name="Flag" type="sisflagdt:FlagType"/>
+																											</xsd:sequence>
+																										</xsd:extension>
+																									</xsd:complexContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="ClosingDate" type="sisdt:TimestampType" minOccurs="0">
+																					<xsd:annotation>
+																						<xsd:documentation>Description: the closing date of the alert history.</xsd:documentation>
+																					</xsd:annotation>
+																				</xsd:element>
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

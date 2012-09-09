@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+	xmlns:exdtp="http://example.anthavio.com/types"
+	targetNamespace="http://example.anthavio.com/types" elementFormDefault="qualified">
+
+	<!-- XSD pro complexType pouzitych v messages XSD -->
+	
+	<complexType name="PingData">
+		<sequence>
+			<element name="version" type="exdtp:NonBlankString" minOccurs="1"/>
+			<element name="timestamp" type="dateTime" minOccurs="1"/>
+			<element name="binary" type="base64Binary" minOccurs="1"/>
+			<element name="opakovaci" type="string" minOccurs="0" maxOccurs="2"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="ResponseHeader">
+		<sequence>
+			<element name="code" type="exdtp:ResponseCode"/>
+			<element name="detail" type="string" minOccurs="0"/>
+		</sequence>
+	</complexType>
+
+	<simpleType name="ResponseCode">
+		<restriction base="string">
+			<enumeration value="SUCCESS">
+				<annotation>
+					<documentation>
+						Pozadavek byl uspesne zpracovan.
+					</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ERROR_REPEAT">
+				<annotation>
+					<documentation>
+						Chyba pri vyrizovani pozadavku. 
+						Prijemce pozadavek nedokazal prijmout. 
+						Volajici by mel volani zopakovat.
+					</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ERROR_INVALID">
+				<annotation>
+					<documentation>
+						Chyba pri vyrizovani pozadavku.
+						Protoze prijemce povazuje pozadavek za neplatny. 
+						Pozadavek nema smysl opakovat.
+					</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="NonBlankString">
+		<restriction base="string">
+			<minLength value="1"/>
+		</restriction>
+	</simpleType>
+	
+</schema>

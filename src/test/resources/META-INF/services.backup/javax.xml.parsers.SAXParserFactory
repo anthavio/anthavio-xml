@@ -1,0 +1,2 @@
+org.apache.xerces.jaxp.SAXParserFactoryImpl
+#com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl

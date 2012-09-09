@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ========================================================================= -->
+<!-- File Name : LinkDataTypes.xsd -->
+<!-- SIS II Element Link Data Types-->
+<!-- Release: 3.0 Candidate -->
+<!-- Copyright S.A. Steria Benelux N.V. 2007-->
+<!-- ========================================================================= -->
+<xsd:schema xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0 Candidate">
+	<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="CommonDataTypes.xsd"/>
+	<!-- ========================================================================= -->
+	<!-- Messages Business Types-->
+	<!-- ========================================================================= -->
+	<xsd:simpleType name="LinkBroadcastOperation">
+		<xsd:annotation>
+			<xsd:documentation>Description: This simple type defines the possible business operations that have triggered the link broadcast message. Depending on the value, the NS knows how to deal with the received data.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Create"/>
+			<xsd:enumeration value="Update"/>
+			<xsd:enumeration value="Delete"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkBroadcastType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the information broadcasted when a CUD operation on a link has occured.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Hash" type="sisdt:HashValueType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Hash contains the hash value of the created/updated record used for data consistency purposes. This value is not sent in case of records deletion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Operation" type="sislinkdt:LinkBroadcastOperation"/>
+			<xsd:element name="Data" type="sislinkdt:LinkBroadcastDataType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkBaseDataType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the information broadcasted when a CUD operation has occured on a link.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CSURN" type="sisdt:CSURNType"/>
+			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="LinkNationalReference" type="sisdt:LinkNationalReferenceType" minOccurs="0"/>
+			<xsd:element name="InputDate" type="sisdt:TimestampType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: The date when the link was stored for the first time. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastModificationDate" type="sisdt:TimestampType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Date of the last change of the link. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkNationalReferenceIDType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the linkID and the NationalReference of the Link</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="LinkNationalReference" type="sisdt:LinkNationalReferenceType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkBroadcastDataType">
+		<xsd:complexContent>
+			<xsd:extension base="sislinkdt:LinkBaseDataType">
+				<xsd:sequence>
+					<xsd:element name="LinkedAlerts" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Element Description: Significant if operation is create or update.</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="SchengenID" type="sisdt:SchengenIDIndexType" minOccurs="2" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkComplementQueryDataType">
+		<xsd:sequence>
+			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="LinkNationalReference" type="sisdt:LinkNationalReferenceType" minOccurs="0"/>
+			<xsd:element name="InputDate" type="sisdt:TimestampType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: The date when the link was stored for the first time. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastModificationDate" type="sisdt:TimestampType">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Date of the last change of the link. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LinkedAlerts">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchengenID" type="sisdt:SchengenIDType" minOccurs="2" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ========================================================================= -->
+	<!-- ConsistencyCheck Aggregations -->
+	<!-- ========================================================================= -->
+	<xsd:complexType name="ComparisonResultsLinkType">
+		<xsd:annotation>
+			<xsd:documentation>Description :This complex type is used to present the field-to-field comparison results for a Link</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="UBN" type="sisdt:UBNType"/>
+			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="Discrepancies">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Discrepancy" type="sisdt:FieldDiscrepancyType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="ExtractionDataLinkType">
+		<xsd:sequence>
+			<xsd:element name="CSURN" type="sisdt:CSURNType" minOccurs="0"/>
+			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="LinkNationalReference" type="sisdt:LinkNationalReferenceType" minOccurs="0"/>
+			<xsd:element name="InputDate" type="sisdt:TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: The date when the link was stored for the first time. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastModificationDate" type="sisdt:TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Date of the last change of the link. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LinkedAlerts" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchengenID" type="sisdt:SchengenIDIndexType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="UBN" type="sisdt:UBNType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkHashType">
+		<xsd:complexContent>
+			<xsd:extension base="sislinkdt:LinkBaseDataType">
+				<xsd:sequence>
+					<xsd:element name="LinkedAlerts">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="SchengenID" type="sisdt:SchengenIDIndexType" minOccurs="2" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="SnapshotDataLinkType">
+		<xsd:annotation>
+			<xsd:documentation>Description : SnapshotDataLink contains both hash and id of a link</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LID" type="sisdt:LinkIDType"/>
+			<xsd:element name="UBN" type="sisdt:UBNType"/>
+			<xsd:element name="Hash" type="sisdt:HashValueType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ========================================================================= -->
+	<!-- ConsistencyCheck link  to restore Aggregations -->
+	<!-- ========================================================================= -->
+	<xsd:simpleType name="LinkRestoreOperationType">
+		<xsd:annotation>
+			<xsd:documentation>Description : This simple type contains the operation : Create/Update or Delete link</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Create/Update"/>
+			<xsd:enumeration value="Delete"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xsd:complexType name="LinkRestoreType">
+		<xsd:annotation>
+			<xsd:documentation>Description: This complex type contains the information sended when an link is concerned by a restore operation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Operation" type="sislinkdt:LinkRestoreOperationType"/>
+			<xsd:element name="UBN" type="sisdt:UBNType"/>
+			<xsd:element name="Hash" type="sisdt:HashValueType" minOccurs="0"/>
+			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+			<xsd:element name="LinkNationalReference" type="sisdt:LinkNationalReferenceType" minOccurs="0"/>
+			<xsd:element name="CSURN" type="sisdt:CSURNType" minOccurs="0"/>
+			<xsd:element name="InputDate" type="sisdt:TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: The date when the link was stored for the first time. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastModificationDate" type="sisdt:TimestampType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Date of the last change of the link. This field will be filled by the central system.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LinkedAlerts" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Element Description: Significant if operation is create or update.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchengenID" type="sisdt:SchengenIDIndexType" minOccurs="2" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+</xsd:schema>

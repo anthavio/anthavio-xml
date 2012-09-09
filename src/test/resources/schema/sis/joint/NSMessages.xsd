@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sisalertdt="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" xmlns:siscsmsg="http://www.europa.eu/schengen/sis/xsd/v1/csmessages" xmlns:sisdt="http://www.europa.eu/schengen/sis/xsd/v1/types/common" xmlns:sisflagdt="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" xmlns:sislinkdt="http://www.europa.eu/schengen/sis/xsd/v1/types/link" xmlns:sisnsmsg="http://www.europa.eu/schengen/sis/xsd/v1/nsmessages" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.europa.eu/schengen/sis/xsd/v1/nsmessages">
+<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/flag" schemaLocation="../DataTypeDictionary/FlagDataTypes.xsd"/>
+<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/alert" schemaLocation="../DataTypeDictionary/AlertDataTypes.xsd"/>
+<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/link" schemaLocation="../DataTypeDictionary/LinkDataTypes.xsd"/>
+<xsd:import namespace="http://www.europa.eu/schengen/sis/xsd/v1/types/common" schemaLocation="../DataTypeDictionary/CommonDataTypes.xsd"/>
+<xsd:element name="NSAddAlertsToLink">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSAddAlertsToLinkRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+							<xsd:element name="LinkedAlerts">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element maxOccurs="unbounded" name="SchengenID" type="sisdt:SchengenIDType"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSApplyDataDumpReport">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Response">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSApplyDataDumpReportResponse</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RCI" type="sisdt:RCIType"/>
+							<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+							<xsd:element name="ReportID" type="sisdt:ReportIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSApplyRestorationReport">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Response">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSApplyRestorationReportResponse</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RCI" type="sisdt:RCIType"/>
+							<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSAttachDeletionNote">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSAttachDeletionNoteRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="DeletionNote" type="sisdt:DeletionNoteType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSBroadcast">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Response">
+					<xsd:annotation>
+						<xsd:documentation>NSBroadcastresponse</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RCI" type="sisdt:RCIType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSChangeExpiryDateAlert">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSChangeExpiryDateRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="NewExpiryDate" type="sisdt:DateRD"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSConsultMessageLog">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request" type="sisalertdt:RequestLogSearchCriteriaType">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSConsultMessageLog</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSCreateAlert">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSCreateAlertRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Alert">
+								<xsd:complexType>
+									<xsd:complexContent>
+										<xsd:extension base="sisalertdt:AlertToCreateType">
+											<xsd:sequence>
+												<xsd:element name="CompatibilityCheckFlag" type="sisalertdt:CompatibilityCheckFlagType"/>
+											</xsd:sequence>
+										</xsd:extension>
+									</xsd:complexContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSCreateFlag">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSCreateFlagRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="Flag" type="sisflagdt:FlagType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSCreateLink">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSCreateLinkRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LinkedAlerts">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element maxOccurs="unbounded" minOccurs="2" name="SchengenID" type="sisdt:SchengenIDType"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element minOccurs="0" name="LinkNationalReference" type="sisdt:LinkNationalReferenceType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSDeleteAlert">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSDeleteAlertRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="KindOfDeletion" type="sisdt:ST123_KindOfDeletionType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSDeleteBinaryData">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSDeleteBinaryDataRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="BinaryIDs">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element maxOccurs="unbounded" name="BinaryID" type="sisalertdt:BinaryIDType"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSDeleteDeletionNote">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSDeleteDeletionNoteRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSDeleteFlag">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSDeleteFlagRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="RequestingCountry" type="sisdt:ST001_RequestingUserType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSDeleteLink">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSDeleteLink</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSExecuteComplementQuery">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSExecuteComplementQueryDataRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="SubsetCriteriaType" type="sisalertdt:SubsetCriteriaType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSExecuteExtendedQuery">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request" type="sisalertdt:ExtendQueryType">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSExecuteExtendedQueryRequest</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSExecuteStandardQuery">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSExecuteStandardQueryRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SearchCriteria" type="sisalertdt:StandardQueryType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSExtendAlert">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSExtendAlertRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Alert" type="sisalertdt:AlertToExtendType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSGetNotificationSubscription">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSGetNotificationSubscriptionRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType/>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSListDataDumpReports">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Response">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSListDataDumpReports</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RCI" type="sisdt:RCIType"/>
+							<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSLoadAlertHistory">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSLoadAlertHistoryRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSLoadBinaryData">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSLoadBinaryDataRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="BinaryID" type="sisalertdt:BinaryIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSLoadEAW">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSLoadEAWRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="EAWID" type="sisalertdt:EAWIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSLoadLink">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSLoadLinkRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+							<xsd:element name="FlagsRetrievedByRequestingUser" type="sisdt:YesNoType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: If FlagsRetrievedByRequestingUser Boolean is set to YES, the Central System sends a response message that contains the flags of the linked alerts to the requesting users.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSLoadLinkHistory">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSLoadLinkHistoryRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSNotification">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Notification">
+					<xsd:annotation>
+						<xsd:documentation>NSNotification</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ReportReady" type="sisalertdt:ReportNotificationPutType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSPerformExtraction">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:choice>
+					<xsd:element name="Response">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : NSPerformExtractionResponse</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Report">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : NSPerformExtractionReport</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="Data">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+											<xsd:element minOccurs="0" name="EDAs">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element maxOccurs="unbounded" name="EDA" type="sisalertdt:ExtractionDataAlertType"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element minOccurs="0" name="EDLs">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element maxOccurs="unbounded" name="EDL" type="sislinkdt:ExtractionDataLinkType"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element minOccurs="0" name="EDBs">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element maxOccurs="unbounded" name="EDB" type="sisalertdt:ExtractionDataBinaryType"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSPerformSnapshot">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:choice>
+					<xsd:element name="Response">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : NSPerformSnapshotResponse</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Report">
+						<xsd:annotation>
+							<xsd:documentation>Message Description : This complex type will be used to identify the location of a generated NS-report, attached to a message.
+example : list of (shengen- and/or alerts-)ID's and hashes sent by NS for proceding a comparison. </xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="RCI" type="sisdt:RCIType"/>
+								<xsd:element name="Data">
+									<xsd:annotation>
+										<xsd:documentation>Description : SnapshotData groups the parameters for a snapshot request issued by the CS</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+											<xsd:element minOccurs="0" name="SDAs">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element maxOccurs="unbounded" name="SDA" type="sisalertdt:SnapshotDataAlertType"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element minOccurs="0" name="SDLs">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element maxOccurs="unbounded" name="SDL" type="sislinkdt:SnapshotDataLinkType"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element minOccurs="0" name="SDBs">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element maxOccurs="unbounded" name="SDB" type="sisalertdt:SnapshotDataBinaryType"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSProcessComparisonResults">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Response">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NS:ProcessComparisonResultsResponse</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RCI" type="sisdt:RCIType"/>
+							<xsd:element name="TrackingID" type="sisdt:TrackingIDType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSQueryMultipleIncompatibleAlerts">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSQueryMultipleIncompatibleAlertsRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="AlertToCheck" type="sisalertdt:AlertToCheckType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSRemoveAlertsFromLink">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSRemoveAlertsToLinkRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+							<xsd:element name="LinkedAlerts">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element maxOccurs="unbounded" name="SchengenID" type="sisdt:SchengenIDType"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSRequestComparison">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSRequestComparisonRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element minOccurs="0" name="ComparisonModifierChoice">
+								<xsd:complexType>
+									<xsd:choice>
+										<xsd:element name="QualifierModifier" type="sisdt:QualifierModifierType"/>
+										<xsd:element name="DiscreteModifier">
+											<xsd:complexType>
+												<xsd:choice>
+													<xsd:element name="IDsToCompare">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element maxOccurs="unbounded" name="IdToCompare">
+																	<xsd:complexType>
+																		<xsd:choice>
+																			<xsd:element name="LinkID" type="sisdt:LinkIDType"/>
+																			<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+																		</xsd:choice>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="BinaryIDsToCompare">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element maxOccurs="unbounded" name="BinaryIdToCompare" type="sisdt:CommonBinaryIDType"/>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:choice>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:choice>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element default="false" minOccurs="0" name="DCCLight" type="sisdt:YesNoType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: Indicates the type of Data Check. No for Normal, Yes for Light (Only Hash comparison,  without limitation on discrepancies).
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element default="true" minOccurs="0" name="AutoRepair" type="sisdt:YesNoType">
+								<xsd:annotation>
+									<xsd:documentation>Element Description: Indicates if the automatic restoration is enabled or disabled for this campaign. Yes for having automatic restoration enabled (Default), No for having it disabled.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSScheduleDataDump">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description : NSScheduleDataDumpRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element minOccurs="0" name="Modifiers" type="sisdt:DataDumpModifierChoiceType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSSubscribeNotification">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSSubscribeNotificationRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="AlertNotificationSubscriptionPattern" type="sisalertdt:AlertNotificationSubscriptionPatternType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSUnsubscribeNotification">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSUnsubscribeNotificationRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element minOccurs="0" name="AlertNotificationPattern" type="sisalertdt:AlertNotificationSubscriptionPatternType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSUpdateAlert">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSUpdateAlertRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Alert">
+								<xsd:complexType>
+									<xsd:complexContent>
+										<xsd:extension base="sisalertdt:AlertToUpdateType">
+											<xsd:sequence>
+												<xsd:element name="CompatibilityCheckFlag" type="sisalertdt:CompatibilityCheckFlagType"/>
+											</xsd:sequence>
+										</xsd:extension>
+									</xsd:complexContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+<xsd:element name="NSUpdateFlag">
+		<xsd:annotation>
+			<xsd:documentation>Description: SIS Messages issued by the National Systems.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="sisdt:HeaderType"/>
+				<xsd:element name="Request">
+					<xsd:annotation>
+						<xsd:documentation>Message Description: NSUpdateFlagRequest</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SchengenID" type="sisdt:SchengenIDType"/>
+							<xsd:element name="Flag" type="sisflagdt:FlagType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

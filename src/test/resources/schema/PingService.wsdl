@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:exmsg="http://example.anthavio.com/messages"
+	xmlns:exsvc="http://example.anthavio.com/services" 
+	targetNamespace="http://example.anthavio.com/services"
+	name="PingService">
+	
+  <wsdl:types>
+  	<schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+			<import namespace="http://example.anthavio.com/messages" schemaLocation="PingMessages.xsd" />
+		</schema>
+  </wsdl:types>
+  
+  <wsdl:message name="PingRequest">
+    <wsdl:part name="parameters" element="exmsg:PingRequest"/>
+  </wsdl:message>
+
+  <wsdl:message name="PingResponse">
+    <wsdl:part name="parameters" element="exmsg:PingResponse"/>
+  </wsdl:message>
+  
+  <wsdl:portType name="PingPort">
+    <wsdl:operation name="Ping">
+      <wsdl:input name="PingRequest" message="exsvc:PingRequest"/>
+      <wsdl:output name="PingResponse" message="exsvc:PingResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="PingSoapBinding" type="exsvc:PingPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="PingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="PingService">
+    <wsdl:port name="PingSoapBinding" binding="exsvc:PingSoapBinding">
+      <soap:address location="http://REPLACE_WITH_REAL_URL/"/>
+    </wsdl:port>
+  </wsdl:service>
+  
+</wsdl:definitions>

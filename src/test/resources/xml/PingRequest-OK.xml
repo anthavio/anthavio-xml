@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exmsg:PingRequest xmlns:exmsg="http://example.anthavio.com/messages" xmlns:exdt="http://example.anthavio.com/types">
+<exmsg:pingData>
+    <exdt:version>version</exdt:version><!--comment-->
+<exdt:timestamp>2001-10-26T19:32:52+00:00</exdt:timestamp>
+<exdt:binary>AAECAwQFBgcICQ==</exdt:binary>
+  </exmsg:pingData></exmsg:PingRequest>

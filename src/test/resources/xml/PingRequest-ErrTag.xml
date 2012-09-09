@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exmsg:PingRequest xmlns:exmsg="http://example.anthavio.com/messages" xmlns:exdt="http://example.anthavio.com/types">
+<exmsg:pingData><!--comment-->
+<exdt:version><boom1>boom1</boom1></exdt:version>
+<exdt:boom2>boom2</exdt:boom2>
+<exdt:timestamp>boom3-2001-10-26T19:32:52+00:00</exdt:timestamp>
+<exdt:binary>AAECAwQFBgcICQ==</exdt:binary>
+<exdt:opakovaci>o1</exdt:opakovaci>
+<exdt:opakovaci>o2</exdt:opakovaci>
+<exdt:opakovaci>boom4</exdt:opakovaci>
+</exmsg:pingData>
+</exmsg:PingRequest>
