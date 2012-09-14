@@ -19,8 +19,8 @@
 	<description>xml library</description>
 
 	<scm>
-		<connection>scm:git:git://github.com/anthavio/anthavio-xml</connection>
-		<developerConnection>scm:git:git@github.com:anthavio/anthavio-xml</developerConnection>
+		<connection>scm:git:git://github.com/anthavio/anthavio-xml.git</connection>
+		<developerConnection>scm:git:git@github.com:anthavio/anthavio-xml.git</developerConnection>
 		<url>https://github.com/anthavio/anthavio-xml</url>
 	</scm>
 
