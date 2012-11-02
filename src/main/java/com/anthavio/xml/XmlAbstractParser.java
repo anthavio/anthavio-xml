@@ -29,6 +29,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -39,7 +40,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.anthavio.NonSolvableException;
 import com.anthavio.xml.stax.Dom2StaxStreamReader;
 import com.anthavio.xml.stax.JaxpStaxInputFactory;
 import com.anthavio.xml.stax.JaxpStaxOutputFactory;
@@ -467,13 +467,13 @@ public class XmlAbstractParser {
 		try {
 			expr = xpath.compile(strXpath);
 		} catch (XPathExpressionException xpx) {
-			throw new NonSolvableException(xpx);
+			throw new UnhandledException(xpx);
 		}
 
 		try {
 			return expr.evaluate(node, qname);
 		} catch (XPathExpressionException xpx) {
-			throw new NonSolvableException(xpx);
+			throw new UnhandledException(xpx);
 		}
 	}
 

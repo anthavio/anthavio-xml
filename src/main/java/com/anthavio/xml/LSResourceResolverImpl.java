@@ -12,22 +12,24 @@ import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.UnhandledException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import com.anthavio.NonSolvableException;
-
 /**
  * @author vanek
  * 
- * Specialni ResourceResolver pouzivany pokud xml referencuje externi dokument z divneho zdroje
+ *         Specialni ResourceResolver pouzivany pokud xml referencuje externi
+ *         dokument z divneho zdroje
  * 
- * Pouzito pro nahravani importovanych xml schemat, pro ktere OC4J pouzival vlastni 
- * nestandardni code-source: pseudoprotokol coz se muselo specialne nahravat.
+ *         Pouzito pro nahravani importovanych xml schemat, pro ktere OC4J
+ *         pouzival vlastni nestandardni code-source: pseudoprotokol coz se
+ *         muselo specialne nahravat.
  * 
- * Pro 99% situaci neni tato trida potreba a staci standardni implementace v parserech.
+ *         Pro 99% situaci neni tato trida potreba a staci standardni
+ *         implementace v parserech.
  */
 public class LSResourceResolverImpl implements LSResourceResolver {
 
@@ -70,7 +72,7 @@ public class LSResourceResolverImpl implements LSResourceResolver {
 			try {
 				targetUrl = new URL(targetUrl.getProtocol(), targetUrl.getHost(), targetUrl.getPort(), sb.toString());
 			} catch (MalformedURLException mux) {
-				throw new NonSolvableException(mux);
+				throw new UnhandledException(mux);
 			}
 		}
 
@@ -94,13 +96,13 @@ public class LSResourceResolverImpl implements LSResourceResolver {
 			try {
 				br.close();
 			} catch (IOException e) {
-				//ignore
+				// ignore
 			}
 		}
 
-		//System.out.println("resolveResource: type=" + type + " namespaceURI="
-		//		+ namespaceURI + " publicId=" + publicId + " systemId=" + systemId
-		//		+ " baseURI=" + baseURI + " -> ");
+		// System.out.println("resolveResource: type=" + type + " namespaceURI="
+		// + namespaceURI + " publicId=" + publicId + " systemId=" + systemId
+		// + " baseURI=" + baseURI + " -> ");
 
 		return new LSInputImpl(baseURI, publicId, systemId, null, false, null, null, sb.toString());
 	}

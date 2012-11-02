@@ -25,7 +25,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import com.anthavio.NonSolvableException;
+import org.apache.commons.lang.UnhandledException;
+
 import com.anthavio.xml.StringSource;
 import com.anthavio.xml.XmlParseException;
 import com.anthavio.xml.stax.XPathEventTracker;
@@ -59,7 +60,7 @@ public class SimpleJaxbBinder<T> {
 				schema = schemaFactory.newSchema(new StringSource(schemaXml));
 			}
 		} catch (Exception x) {
-			throw new NonSolvableException(x);
+			throw new UnhandledException(x);
 		}
 	}
 
@@ -78,7 +79,7 @@ public class SimpleJaxbBinder<T> {
 			xmlStreamReader = xmlInputFactory.createXMLEventReader(source);
 		} catch (XMLStreamException xsx) {
 			//xsx.getLocation();
-			throw new NonSolvableException(xsx);
+			throw new UnhandledException(xsx);
 		}
 		XPathEventTracker tracker = new XPathEventTracker(xmlStreamReader);
 		XmlErrorHandler handler = new XmlErrorHandler(tracker);
@@ -124,7 +125,7 @@ public class SimpleJaxbBinder<T> {
 			Marshaller marshaller = createMarshaller();
 			marshaller.marshal(object, writer);
 		} catch (JAXBException jbx) {
-			throw new NonSolvableException(jbx);
+			throw new UnhandledException(jbx);
 		}
 	}
 
@@ -142,7 +143,7 @@ public class SimpleJaxbBinder<T> {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			return marshaller;
 		} catch (JAXBException jbx) {
-			throw new NonSolvableException(jbx);
+			throw new UnhandledException(jbx);
 		}
 	}
 
@@ -154,7 +155,7 @@ public class SimpleJaxbBinder<T> {
 			}
 			return unmarshaller;
 		} catch (JAXBException jbx) {
-			throw new NonSolvableException(jbx);
+			throw new UnhandledException(jbx);
 		}
 	}
 
