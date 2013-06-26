@@ -8,9 +8,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLResolver;
 
 import com.anthavio.xml.JaxpAbstractFactory;
-
 
 /**
  * @author vanek
@@ -76,4 +76,31 @@ public class JaxpStaxInputFactory extends JaxpAbstractFactory<XMLInputFactory> {
 		this.factoryProperties = factoryProperties;
 	}
 
+	public void setXmlResolver(XMLResolver resolver) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.RESOLVER, resolver);
+	}
+
+	public void setCoalescing(boolean coalescing) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.IS_COALESCING, coalescing);
+	}
+
+	public void setValidating(boolean validating) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.IS_VALIDATING, validating);
+	}
+
+	public void setSupportDtd(boolean supportDtd) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.SUPPORT_DTD, supportDtd);
+	}
 }

@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.validation.Schema;
 
 import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
 /**
@@ -57,11 +58,15 @@ public class JaxpDomFactory extends JaxpAbstractFactory<DocumentBuilderFactory> 
 
 	private boolean xIncludeAware = false;
 
+	//external schema
 	private Schema schema;
 
 	private HashMap<String, Boolean> factoryFeatures;
 
 	private HashMap<String, Object> factoryAttributes;
+
+	//EntityResolver loads DTD, XDS entities referenced from XML
+	private EntityResolver entityResolver;
 
 	public JaxpDomFactory() {
 		super();
@@ -75,18 +80,30 @@ public class JaxpDomFactory extends JaxpAbstractFactory<DocumentBuilderFactory> 
 		super(implementation.getFactoryClassName());
 	}
 
+	/**
+	 * @return Builds preconfigured JAXP DocumentBuilder with ErrorHandler
+	 */
 	public DocumentBuilder newDocumentBuilder(ErrorHandler errorHandler) {
+		if (errorHandler == null) {
+			throw new IllegalArgumentException("Null ErrorHandler");
+		}
 		DocumentBuilder builder = newDocumentBuilder();
 		builder.setErrorHandler(errorHandler);
 		return builder;
 	}
 
+	/**
+	 * @return preconfigured JAXP DocumentBuilder 
+	 */
 	public DocumentBuilder newDocumentBuilder() {
 		DocumentBuilder builder;
 		try {
 			builder = getFactory().newDocumentBuilder();
 		} catch (ParserConfigurationException pcx) {
 			throw new JaxpConfigException(pcx);
+		}
+		if (entityResolver != null) {
+			builder.setEntityResolver(entityResolver);
 		}
 		return builder;
 	}
@@ -236,6 +253,10 @@ public class JaxpDomFactory extends JaxpAbstractFactory<DocumentBuilderFactory> 
 	public void setValidating(boolean validating) {
 		checkState();
 		this.validating = validating;
+	}
+
+	public void setEntityResolver(EntityResolver entityResolver) {
+		this.entityResolver = entityResolver;
 	}
 
 }

@@ -15,12 +15,41 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * 
  * Sax filter and Stax reader/writer tracking xpath of processed xml
  * {@link #getXPath()} {@link #getLocation()}
+ * 
+ * SAX & DTD validation
+ * 
+ * XMLReader xmlReader = saxParser.getXMLReader();
+ * XPathSaxTracker xpathTracker = new XPathSaxTracker(xmlReader);
+ * SilentErrorHandler handler = new SilentErrorHandler(xpathTracker);
+ * xpathTracker.setErrorHandler(handler);
+ * xpathTracker.setEntityResolver(resolver);
+ * xpathTracker.parse(...);
+ * 
+ * JDOM2 & DTD
+ * 
+ * SAXBuilder jdom2 = new SAXBuilder();
+ * jdom2.setEntityResolver(resolver); 
+ * jdom2.setXMLReaderFactory(XMLReaders.DTDVALIDATING);
+ * XPathSaxTracker xpathTracker = new XPathSaxTracker();
+ * SilentErrorHandler handler = new SilentErrorHandler(xpathTracker);
+ * jdom2.setErrorHandler(handler);
+ * jdom2.setXMLFilter(xpathTracker);
+ * Document document = jdom2.build(...);
  */
 public class XPathSaxTracker extends XMLFilterImpl implements XPathTracker {
 
 	private final Stack<XpathHolder> histograms = new Stack<XpathHolder>();
 
 	private Location location;
+
+	/**
+	 *  org.xml.sax.XMLFilter (read/write)
+	 *  
+	 *  Use setParent(xmlReader) to set parent XmlReader
+	 */
+	public XPathSaxTracker() {
+
+	}
 
 	/**
 	 * org.xml.sax.ContentHandler (write)
@@ -38,6 +67,8 @@ public class XPathSaxTracker extends XMLFilterImpl implements XPathTracker {
 	 */
 	public XPathSaxTracker(XMLReader parentSaxReader) {
 		super(parentSaxReader);
+		setEntityResolver(parentSaxReader.getEntityResolver());
+		setErrorHandler(parentSaxReader.getErrorHandler());
 	}
 
 	@Override

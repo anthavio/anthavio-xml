@@ -18,9 +18,9 @@ import org.xml.sax.helpers.AttributesImpl;
 /**
  * @author vanek
  * 
- * vykradeno javanet.staxutils.XMLStreamReaderToContentHandler
+ * Stolen from javanet.staxutils.XMLStreamReaderToContentHandler
  * 
- * coz je kopie com.sun.org.apache.xalan.internal.xsltc.trax.StAXStream2SAX
+ * witch is stolen from com.sun.org.apache.xalan.internal.xsltc.trax.StAXStream2SAX
  *
  */
 public class Stax2SaxStreamReader {

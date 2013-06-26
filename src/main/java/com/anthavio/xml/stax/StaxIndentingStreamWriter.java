@@ -14,12 +14,13 @@ import javax.xml.stream.XMLStreamWriter;
  *
  */
 public class StaxIndentingStreamWriter implements XMLStreamWriter {
-	private final static Object SEEN_NOTHING = new Object();
-	private final static Object SEEN_ELEMENT = new Object();
-	private final static Object SEEN_DATA = new Object();
 
-	private Object state = SEEN_NOTHING;
-	private Stack<Object> stateStack = new Stack<Object>();
+	private enum State {
+		SEEN_NOTHING, SEEN_ELEMENT, SEEN_DATA;
+	}
+
+	private State state = State.SEEN_NOTHING;
+	private Stack<State> stateStack = new Stack<State>();
 
 	private String indentStep = "  ";
 	private int depth = 0;
@@ -35,8 +36,8 @@ public class StaxIndentingStreamWriter implements XMLStreamWriter {
 	}
 
 	private void onStartElement() throws XMLStreamException {
-		stateStack.push(SEEN_ELEMENT);
-		state = SEEN_NOTHING;
+		stateStack.push(State.SEEN_ELEMENT);
+		state = State.SEEN_NOTHING;
 		if (depth > 0) {
 			writer.writeCharacters("\n");
 		}
@@ -46,7 +47,7 @@ public class StaxIndentingStreamWriter implements XMLStreamWriter {
 
 	private void onEndElement() throws XMLStreamException {
 		depth--;
-		if (state == SEEN_ELEMENT) {
+		if (state == State.SEEN_ELEMENT) {
 			writer.writeCharacters("\n");
 			doIndent();
 		}
@@ -54,7 +55,7 @@ public class StaxIndentingStreamWriter implements XMLStreamWriter {
 	}
 
 	private void onEmptyElement() throws XMLStreamException {
-		state = SEEN_ELEMENT;
+		state = State.SEEN_ELEMENT;
 		if (depth > 0) {
 			writer.writeCharacters("\n");
 		}
@@ -127,17 +128,17 @@ public class StaxIndentingStreamWriter implements XMLStreamWriter {
 	}
 
 	public void writeCharacters(String text) throws XMLStreamException {
-		state = SEEN_DATA;
+		state = State.SEEN_DATA;
 		writer.writeCharacters(text);
 	}
 
 	public void writeCharacters(char[] text, int start, int len) throws XMLStreamException {
-		state = SEEN_DATA;
+		state = State.SEEN_DATA;
 		writer.writeCharacters(text, start, len);
 	}
 
 	public void writeCData(String data) throws XMLStreamException {
-		state = SEEN_DATA;
+		state = State.SEEN_DATA;
 		writer.writeCData(data);
 	}
 

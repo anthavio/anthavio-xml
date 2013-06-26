@@ -12,12 +12,18 @@ import javax.xml.stream.XMLStreamWriter;
 
 import com.anthavio.xml.XPathTracker;
 
-
 /**
  * @author vanek
  * 
- * Sax filter and Stax reader/writer tracking xpath of processed xml
+ * Stax Stream reader/writer tracking xpath of processed stax stream
  * {@link #getXPath()} {@link #getLocation()}
+ * 
+ * JAXB with validation handler:
+ * 
+ * XPathStreamTracker tracker = new XPathStreamTracker(xmlStreamReader);
+ * SilentErrorHandler handler = new SilentErrorHandler(tracker);
+ * unmarshaller.setEventHandler(handler);
+ * unmarshaller.unmarshal(tracker);
  */
 public class XPathStreamTracker implements XMLStreamReader, XMLStreamWriter, XPathTracker {
 

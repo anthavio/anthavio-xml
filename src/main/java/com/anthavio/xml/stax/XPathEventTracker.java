@@ -14,12 +14,19 @@ import javax.xml.stream.events.XMLEvent;
 
 import com.anthavio.xml.XPathTracker;
 
-
 /**
  * @author vanek
  * 
- * Sax filter and Stax reader/writer tracking xpath of processed xml
+ * Stax Event reader/writer tracking xpath of processed stax event stream
  * {@link #getXPath()} {@link #getLocation()}
+ * 
+ * JAXB with validation handler:
+ * 
+ * XPathEventTracker tracker = new XPathEventTracker(xmlEventReader);
+ * SilentErrorHandler handler = new SilentErrorHandler(tracker);
+ * unmarshaller.setEventHandler(handler);
+ * unmarshaller.unmarshal(tracker);
+ * 
  */
 public class XPathEventTracker implements XMLEventReader, XMLEventWriter, EventFilter, XPathTracker {
 

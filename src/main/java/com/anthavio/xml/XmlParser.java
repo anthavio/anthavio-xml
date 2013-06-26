@@ -16,7 +16,6 @@ import com.anthavio.xml.validation.JaxpSchemaFactory;
 import com.anthavio.xml.validation.XmlSchemaLoader;
 import com.anthavio.xml.validation.XmlValidationException;
 
-
 /**
  * 
  * @author vanek
@@ -26,10 +25,10 @@ public class XmlParser extends XmlAbstractParser {
 
 	private final Schema schema;
 
-	//pokud parsujeme staxem a/nebo pomoci ValidationHandleru, tak se nepouziva
+	//Not used when parsing Stax and/or with ValidationHandler
 	private JaxpSaxFactory saxFactory;
 
-	//tohle nejspis nebudeme potrebovat vubec
+	//We might not need this at all
 	private JaxpDomFactory domFactory;
 
 	/**
@@ -63,7 +62,11 @@ public class XmlParser extends XmlAbstractParser {
 				throw new XmlParseException(mux);
 			}
 		} else {
-			schemaUrl = Thread.currentThread().getContextClassLoader().getResource(schemaResource);
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			if (classLoader == null) {
+				classLoader = getClass().getClassLoader();
+			}
+			schemaUrl = classLoader.getResource(schemaResource);
 		}
 		if (schemaUrl == null) {
 			throw new IllegalArgumentException("Schema resource is invalid " + schemaResource);

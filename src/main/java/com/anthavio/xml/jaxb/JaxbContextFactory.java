@@ -3,7 +3,7 @@
  */
 package com.anthavio.xml.jaxb;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -31,9 +31,9 @@ public class JaxbContextFactory {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	public static final String JAXB_FACTORY_JDK_RI = "com.sun.xml.internal.bind.v2.runtime.JAXBContextImpl";
+	public static final String JAXB_FACTORY_JDK_RI = "com.sun.xml.internal.bind.v2.ContextFactory";//public static JAXBContext createContext(Class[] classes, Map<String,Object> properties ) throws JAXBException
 
-	public static final String JAXB_FACTORY_JAXB_RI = "com.sun.xml.bind.v2.runtime.JAXBContextImpl";
+	public static final String JAXB_FACTORY_JAXB_RI = "com.sun.xml.bind.v2.ContextFactory";
 
 	public static final String JAXB_FACTORY_MOXY = "org.eclipse.persistence.jaxb.JAXBContextFactory";
 
@@ -52,19 +52,19 @@ public class JaxbContextFactory {
 
 	private final JaxbImplementation implementation;
 
-	private final String contextClassName;
+	private final String factoryClassName;
 
 	private Schema schema;
 
-	private HashMap<String, ?> contextProperties;
+	private Map<String, ?> contextProperties;
 
 	private String contextPath;
 
 	private Class<?>[] classesToBeBound;
 
-	private HashMap<String, Object> marshallerProperties;
+	private Map<String, Object> marshallerProperties;
 
-	private HashMap<String, Object> unmarshallerProperties;
+	private Map<String, Object> unmarshallerProperties;
 
 	private XmlAdapter<?, ?> xmlAdapter;
 
@@ -76,20 +76,20 @@ public class JaxbContextFactory {
 
 	public JaxbContextFactory() {
 		this.implementation = JaxbImplementation.JDK_RI;
-		this.contextClassName = JAXB_FACTORY_JDK_RI;
+		this.factoryClassName = JAXB_FACTORY_JDK_RI;
 	}
 
 	public JaxbContextFactory(JaxbImplementation implementation) {
 		this.implementation = implementation;
 		switch (implementation) {
 		case JDK_RI:
-			this.contextClassName = JAXB_FACTORY_JDK_RI;
+			this.factoryClassName = JAXB_FACTORY_JDK_RI;
 			break;
 		case JAXB_RI:
-			this.contextClassName = JAXB_FACTORY_JAXB_RI;
+			this.factoryClassName = JAXB_FACTORY_JAXB_RI;
 			break;
 		case MOXY:
-			this.contextClassName = JAXB_FACTORY_MOXY;
+			this.factoryClassName = JAXB_FACTORY_MOXY;
 			break;
 		default:
 			throw new NotSupportedException(implementation);
@@ -159,7 +159,7 @@ public class JaxbContextFactory {
 			return context;
 		}
 
-		JAXBContext context = newContextInstance();
+		JAXBContext context = newContextImpl();
 
 		if (this.context == null) {
 			this.context = context;
@@ -167,20 +167,40 @@ public class JaxbContextFactory {
 		return context;
 	}
 
-	private JAXBContext newContextInstance() {
+	public JAXBContext newContext(Class<?>... classes) {
+		return newContextImpl(classes, contextProperties);
+	}
 
+	public JAXBContext newContext(String contextPath) {
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		return newContextImpl(contextPath, classLoader, contextProperties);
+	}
+
+	private JAXBContext newContextImpl() {
 		JAXBContext jaxbContext;
+		if (contextPath != null && contextPath.length() != 0) {
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			jaxbContext = newContextImpl(contextPath, classLoader, contextProperties);
+		} else if (classesToBeBound != null && classesToBeBound.length != 0) {
+			jaxbContext = newContextImpl(classesToBeBound, contextProperties);
+		} else {
+			throw new JaxpConfigException("One of contextPath or classesToBeBound must be specified");
+		}
+
+		return jaxbContext;
+	}
+
+	private JAXBContext newContextImpl(String contextPath, ClassLoader classLoader, Map<String, ?> contextProperties) {
+		//Poor man's factory selection - can mess the things up when multiple threads will be involved... 
+		final String propertyName = JAXBContext.class.getName();
+		final String savedFactoryName = System.getProperty(propertyName);
+		System.setProperty(propertyName, factoryClassName);
 		try {
-			if (contextPath != null && contextPath.length() != 0) {
-				ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-				jaxbContext = JAXBContext.newInstance(contextPath, classLoader, contextProperties);
-			} else if (classesToBeBound != null && classesToBeBound.length != 0) {
-				jaxbContext = JAXBContext.newInstance(classesToBeBound, contextProperties);
-			} else {
-				throw new JaxpConfigException("One of contextPath or classesToBeBound must be specified");
-			}
+			JAXBContext jaxbContext = JAXBContext.newInstance(contextPath, classLoader, contextProperties);
 			log.debug("Created JAXB context " + jaxbContext.getClass().getName() + " from "
 					+ ResourceUtil.which(jaxbContext.getClass()));
+			return jaxbContext;
+
 		} catch (JAXBException jaxbx) {
 			if (jaxbx.getLinkedException() != null) {
 				throw new JaxpConfigException(jaxbx.getLinkedException());
@@ -188,12 +208,43 @@ public class JaxbContextFactory {
 				throw new JaxpConfigException(jaxbx);
 			}
 
+		} finally {
+			if (savedFactoryName != null) {
+				System.setProperty(propertyName, savedFactoryName);
+			} else {
+				System.clearProperty(propertyName);
+			}
 		}
-		return jaxbContext;
 	}
 
-	public String getContextClassName() {
-		return contextClassName;
+	private JAXBContext newContextImpl(Class<?>[] classesToBeBound, Map<String, ?> contextProperties) {
+		//Poor man's factory selection - can mess the things up when multiple threads will be involved...
+		final String propertyName = JAXBContext.class.getName();
+		final String savedFactoryName = System.getProperty(propertyName);
+		System.setProperty(propertyName, factoryClassName);
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(classesToBeBound, contextProperties);
+			log.debug("Created JAXB context " + jaxbContext.getClass().getName() + " from "
+					+ ResourceUtil.which(jaxbContext.getClass()));
+			return jaxbContext;
+
+		} catch (JAXBException jaxbx) {
+			if (jaxbx.getLinkedException() != null) {
+				throw new JaxpConfigException(jaxbx.getLinkedException());
+			} else {
+				throw new JaxpConfigException(jaxbx);
+			}
+		} finally {
+			if (savedFactoryName != null) {
+				System.setProperty(propertyName, savedFactoryName);
+			} else {
+				System.clearProperty(propertyName);
+			}
+		}
+	}
+
+	public String getFactoryClassName() {
+		return factoryClassName;
 	}
 
 	public void setSchema(Schema schema) {
@@ -204,11 +255,11 @@ public class JaxbContextFactory {
 		return implementation;
 	}
 
-	public HashMap<String, ?> getContextProperties() {
+	public Map<String, ?> getContextProperties() {
 		return contextProperties;
 	}
 
-	public void setContextProperties(HashMap<String, ?> contextProperties) {
+	public void setContextProperties(Map<String, ?> contextProperties) {
 		this.contextProperties = contextProperties;
 	}
 
@@ -228,19 +279,19 @@ public class JaxbContextFactory {
 		this.classesToBeBound = classesToBeBound;
 	}
 
-	public HashMap<String, Object> getMarshallerProperties() {
+	public Map<String, Object> getMarshallerProperties() {
 		return marshallerProperties;
 	}
 
-	public void setMarshallerProperties(HashMap<String, Object> marshallerProperties) {
+	public void setMarshallerProperties(Map<String, Object> marshallerProperties) {
 		this.marshallerProperties = marshallerProperties;
 	}
 
-	public HashMap<String, Object> getUnmarshallerProperties() {
+	public Map<String, Object> getUnmarshallerProperties() {
 		return unmarshallerProperties;
 	}
 
-	public void setUnmarshallerProperties(HashMap<String, Object> unmarshallerProperties) {
+	public void setUnmarshallerProperties(Map<String, Object> unmarshallerProperties) {
 		this.unmarshallerProperties = unmarshallerProperties;
 	}
 

@@ -36,6 +36,8 @@ import com.anthavio.xml.validation.XmlValidationException;
 /**
  * @author vanek
  * 
+ * TODO revisit this class
+ * 
  * Maly skladny a sikovny JAXB marshaller/unmarshaller pro code first pouziti
  */
 public class SimpleJaxbBinder<T> {
@@ -48,7 +50,14 @@ public class SimpleJaxbBinder<T> {
 
 	private Schema schema;
 
+	public SimpleJaxbBinder(Class<T> jaxbClass) {
+		this(jaxbClass, false);
+	}
+
 	public SimpleJaxbBinder(Class<T> jaxbClass, boolean useSchema) {
+		if (jaxbClass == null) {
+			throw new IllegalArgumentException("Null class to bind");
+		}
 		this.jaxbClass = jaxbClass;
 		try {
 			jaxbCtx = JAXBContext.newInstance(jaxbClass);
@@ -93,7 +102,7 @@ public class SimpleJaxbBinder<T> {
 			return value;
 
 		} catch (JAXBException jbx) {
-			System.out.println(handler.getErrors());
+			//System.out.println(handler.getErrors());
 			StringBuilder sb = new StringBuilder();
 			if (jbx.getLinkedException() != null) {
 				sb.append(jbx.getLinkedException());

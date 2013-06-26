@@ -8,6 +8,12 @@ import java.net.URL;
 
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventLocator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
 
@@ -22,17 +28,28 @@ import org.xml.sax.SAXParseException;
  *
  * Stores java.xml.bind.ValidationEvent and org.xml.sax.SAXParseException error data
  */
+@XmlRootElement(name = "ValidationEvent")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ValidationEventImpl implements ValidationEvent {
 
-	private final Throwable exception;
+	@XmlTransient
+	private Throwable exception;
 
-	private final String message;
+	@XmlElement
+	private String message;
 
-	private final int severity;
+	@XmlElement
+	private int severity;
 
-	private final String xpath;
+	@XmlElement
+	private String xpath;
 
-	private final ValidationEventLocator locator;
+	@XmlElement
+	private ValidationEventLocatorImpl locator;
+
+	protected ValidationEventImpl() {
+		//JAXB
+	}
 
 	/**
 	 * org.xml.sax
@@ -126,115 +143,126 @@ public class ValidationEventImpl implements ValidationEvent {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
-}
 
-class ValidationEventLocatorImpl implements ValidationEventLocator {
+	@XmlAccessorType(XmlAccessType.FIELD)
+	public static class ValidationEventLocatorImpl implements ValidationEventLocator {
 
-	private int lineNumber = -1;
+		@XmlAttribute
+		private int lineNumber = -1;
 
-	private int columnNumber = -1;
+		@XmlAttribute
+		private int columnNumber = -1;
 
-	private int offset = -1;
+		@XmlAttribute
+		private int offset = -1;
 
-	private Node node;
+		@XmlTransient
+		private Node node;
 
-	private Object object;
+		@XmlTransient
+		private Object object;
 
-	private URL url;
+		@XmlTransient
+		private URL url;
 
-	public ValidationEventLocatorImpl(SAXParseException sx) {
-		this.url = toURL(sx.getSystemId());
-		this.columnNumber = sx.getColumnNumber();
-		this.lineNumber = sx.getLineNumber();
-	}
+		protected ValidationEventLocatorImpl() {
+			//JAXB
+		}
 
-	public ValidationEventLocatorImpl(TransformerException tx) {
-		SourceLocator locator = tx.getLocator();
-		if (locator != null) {
+		public ValidationEventLocatorImpl(SAXParseException sx) {
+			this.url = toURL(sx.getSystemId());
+			this.columnNumber = sx.getColumnNumber();
+			this.lineNumber = sx.getLineNumber();
+		}
+
+		public ValidationEventLocatorImpl(TransformerException tx) {
+			SourceLocator locator = tx.getLocator();
+			if (locator != null) {
+				this.url = toURL(locator.getSystemId());
+				this.columnNumber = locator.getColumnNumber();
+				this.lineNumber = locator.getLineNumber();
+			}
+		}
+
+		public ValidationEventLocatorImpl(Locator locator) {
 			this.url = toURL(locator.getSystemId());
 			this.columnNumber = locator.getColumnNumber();
 			this.lineNumber = locator.getLineNumber();
 		}
-	}
 
-	public ValidationEventLocatorImpl(Locator locator) {
-		this.url = toURL(locator.getSystemId());
-		this.columnNumber = locator.getColumnNumber();
-		this.lineNumber = locator.getLineNumber();
-	}
-
-	public ValidationEventLocatorImpl(ValidationEventLocator locator) {
-		this.lineNumber = locator.getLineNumber();
-		this.columnNumber = locator.getColumnNumber();
-		this.offset = locator.getOffset();
-		this.node = locator.getNode();
-		this.object = locator.getObject();
-		this.url = locator.getURL();
-	}
-
-	public ValidationEventLocatorImpl(int lineNumber, int columnNumber, int offset, Node node, Object object, URL url) {
-		this.lineNumber = lineNumber;
-		this.columnNumber = columnNumber;
-		this.offset = offset;
-		this.node = node;
-		this.object = object;
-		this.url = url;
-	}
-
-	public int getColumnNumber() {
-		return columnNumber;
-	}
-
-	public int getLineNumber() {
-		return lineNumber;
-	}
-
-	public Node getNode() {
-		return node;
-	}
-
-	public Object getObject() {
-		return object;
-	}
-
-	public int getOffset() {
-		return offset;
-	}
-
-	public URL getURL() {
-		return url;
-	}
-
-	private static URL toURL(String systemId) {
-		try {
-			return new URL(systemId);
-		} catch (MalformedURLException e) {
-			return null; // for now
+		public ValidationEventLocatorImpl(ValidationEventLocator locator) {
+			this.lineNumber = locator.getLineNumber();
+			this.columnNumber = locator.getColumnNumber();
+			this.offset = locator.getOffset();
+			this.node = locator.getNode();
+			this.object = locator.getObject();
+			this.url = locator.getURL();
 		}
-	}
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if (lineNumber != -1) {
-			sb.append("Line: ").append(lineNumber);
+		public ValidationEventLocatorImpl(int lineNumber, int columnNumber, int offset, Node node, Object object, URL url) {
+			this.lineNumber = lineNumber;
+			this.columnNumber = columnNumber;
+			this.offset = offset;
+			this.node = node;
+			this.object = object;
+			this.url = url;
 		}
-		if (columnNumber != -1) {
-			sb.append(", Column: ").append(columnNumber);
-		}
-		if (offset != -1) {
-			sb.append(", Offset: ").append(offset);
-		}
-		if (node != null) {
-			sb.append(", Node: ").append(node);
-		}
-		if (object != null) {
-			sb.append(", Object: ").append(object);
-		}
-		if (url != null) {
-			sb.append(", Url: ").append(url);
-		}
-		return sb.toString();
-	}
 
+		public int getColumnNumber() {
+			return columnNumber;
+		}
+
+		public int getLineNumber() {
+			return lineNumber;
+		}
+
+		public Node getNode() {
+			return node;
+		}
+
+		public Object getObject() {
+			return object;
+		}
+
+		public int getOffset() {
+			return offset;
+		}
+
+		public URL getURL() {
+			return url;
+		}
+
+		private static URL toURL(String systemId) {
+			try {
+				return new URL(systemId);
+			} catch (MalformedURLException e) {
+				return null; // for now
+			}
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			if (lineNumber != -1) {
+				sb.append("Line: ").append(lineNumber);
+			}
+			if (columnNumber != -1) {
+				sb.append(", Column: ").append(columnNumber);
+			}
+			if (offset != -1) {
+				sb.append(", Offset: ").append(offset);
+			}
+			if (node != null) {
+				sb.append(", Node: ").append(node);
+			}
+			if (object != null) {
+				sb.append(", Object: ").append(object);
+			}
+			if (url != null) {
+				sb.append(", Url: ").append(url);
+			}
+			return sb.toString();
+		}
+
+	}
 }

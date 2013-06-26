@@ -17,6 +17,9 @@ import com.anthavio.io.ResetableReader;
 import com.anthavio.xml.stax.ResetableStaxEventReader;
 
 /**
+ * Sometimes first element name in the xml is needed for finding xml schema required for validation of that xml.
+ * This collides with streaming xml processing so Resetable stream/reader is needed to "unread" 
+ * 
  * @author vanek
  *
  */

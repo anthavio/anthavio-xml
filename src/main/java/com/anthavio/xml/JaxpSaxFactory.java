@@ -13,6 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.validation.Schema;
 
 import org.xml.sax.ContentHandler;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
@@ -61,6 +62,8 @@ public class JaxpSaxFactory extends JaxpAbstractFactory<SAXParserFactory> {
 
 	private HashMap<String, Object> parserProperties;
 
+	private EntityResolver entityResolver;
+
 	public JaxpSaxFactory() {
 		super();
 	}
@@ -80,19 +83,26 @@ public class JaxpSaxFactory extends JaxpAbstractFactory<SAXParserFactory> {
 		} catch (SAXException sx) {
 			throw new JaxpConfigException(sx);
 		}
+		if (entityResolver != null) {
+			xmlReader.setEntityResolver(entityResolver);
+		}
 		return xmlReader;
 	}
 
 	public XMLReader getXMLReader(ContentHandler contentHandler) {
+		if (contentHandler == null) {
+			throw new IllegalArgumentException("Null ContentHandler");
+		}
 		XMLReader xmlReader = getXMLReader();
 		xmlReader.setContentHandler(contentHandler);
 		return xmlReader;
 	}
 
 	public XMLReader getXMLReader(ContentHandler contentHandler, ErrorHandler errorHandler) {
-		XMLReader xmlReader = getXMLReader();
-		xmlReader.setContentHandler(contentHandler);
-		xmlReader.setErrorHandler(errorHandler);
+		if (errorHandler == null) {
+			throw new IllegalArgumentException("Null ErrorHandler");
+		}
+		XMLReader xmlReader = getXMLReader(contentHandler);
 		return xmlReader;
 	}
 
@@ -186,10 +196,10 @@ public class JaxpSaxFactory extends JaxpAbstractFactory<SAXParserFactory> {
 
 	public void addFactoryFeature(String name, boolean value) {
 		checkState();
-		if(factoryFeatures==null) {
-			factoryFeatures= new HashMap<String, Boolean>();
+		if (factoryFeatures == null) {
+			factoryFeatures = new HashMap<String, Boolean>();
 		}
-		factoryFeatures.put(name,value);
+		factoryFeatures.put(name, value);
 	}
 
 	public boolean getxIncludeAware() {
@@ -224,6 +234,10 @@ public class JaxpSaxFactory extends JaxpAbstractFactory<SAXParserFactory> {
 
 	public void setValidating(boolean validating) {
 		this.validating = validating;
+	}
+
+	public void setEntityResolver(EntityResolver entityResolver) {
+		this.entityResolver = entityResolver;
 	}
 
 }
