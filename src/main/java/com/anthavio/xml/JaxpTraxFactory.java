@@ -20,9 +20,10 @@ public class JaxpTraxFactory extends JaxpAbstractFactory<TransformerFactory> {
 
 	public static final String TRAX_FACTORY_JAXP = "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl";
 	public static final String TRAX_FACTORY_XALAN = "org.apache.xalan.processor.TransformerFactoryImpl";
+	public static final String TRAX_FACTORY_SAXON = "net.sf.saxon.TransformerFactoryImpl";
 
 	public enum TraxImplementation {
-		JDK(TRAX_FACTORY_JAXP), XALAN(TRAX_FACTORY_XALAN);
+		JDK(TRAX_FACTORY_JAXP), XALAN(TRAX_FACTORY_XALAN), SAXON(TRAX_FACTORY_SAXON);
 
 		private final String factoryClassName;
 

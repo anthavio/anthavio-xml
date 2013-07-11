@@ -22,9 +22,10 @@ public class JaxpXpathFactory extends JaxpAbstractFactory<XPathFactory> {
 
 	public static final String XPATH_FACTORY_JAXP = "com.sun.org.apache.xpath.internal.jaxp.XPathFactoryImpl";
 	public static final String XPATH_FACTORY_XALAN = "org.apache.xpath.jaxp.XPathFactoryImpl";
+	public static final String XPATH_FACTORY_SAXON = "net.sf.saxon.xpath.XPathFactoryImpl";
 
 	public enum XpathImplementation {
-		JDK(XPATH_FACTORY_JAXP), XALAN(XPATH_FACTORY_XALAN);
+		JDK(XPATH_FACTORY_JAXP), XALAN(XPATH_FACTORY_XALAN), SAXON(XPATH_FACTORY_SAXON);
 
 		private final String factoryClassName;
 
