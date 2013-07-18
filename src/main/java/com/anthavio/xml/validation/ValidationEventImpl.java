@@ -32,6 +32,10 @@ import org.xml.sax.SAXParseException;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ValidationEventImpl implements ValidationEvent {
 
+	public static enum Origin {
+		JAXB, SAX, TRAX;
+	}
+
 	@XmlTransient
 	private Throwable exception;
 
@@ -43,6 +47,9 @@ public class ValidationEventImpl implements ValidationEvent {
 
 	@XmlElement
 	private String xpath;
+
+	@XmlTransient
+	private Origin origin;
 
 	@XmlElement
 	private ValidationEventLocatorImpl locator;
@@ -60,6 +67,7 @@ public class ValidationEventImpl implements ValidationEvent {
 		this.severity = severity;
 		this.xpath = xpath;
 		this.locator = new ValidationEventLocatorImpl(sx);
+		this.origin = Origin.SAX;
 	}
 
 	/**
@@ -71,6 +79,7 @@ public class ValidationEventImpl implements ValidationEvent {
 		this.severity = severity;
 		this.xpath = xpath;
 		this.locator = new ValidationEventLocatorImpl(tx);
+		this.origin = Origin.TRAX;
 	}
 
 	/**
@@ -83,6 +92,7 @@ public class ValidationEventImpl implements ValidationEvent {
 		this.severity = severity;
 		this.xpath = xpath;
 		this.locator = new ValidationEventLocatorImpl(locator);
+		this.origin = Origin.JAXB;
 	}
 
 	public Throwable getLinkedException() {
@@ -105,6 +115,10 @@ public class ValidationEventImpl implements ValidationEvent {
 		return locator;
 	}
 
+	public Origin getOrigin() {
+		return origin;
+	}
+
 	@Override
 	public String toString() {
 		String severity;
@@ -123,7 +137,8 @@ public class ValidationEventImpl implements ValidationEvent {
 			break;
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append(severity);
+		sb.append(origin);
+		sb.append(", ").append(severity);
 		if (!locator.toString().equals("")) {
 			sb.append(", ").append(locator);
 		}

@@ -85,7 +85,10 @@ public class XPathSaxTracker extends XMLFilterImpl implements XPathTracker {
 		if (idx != -1) {
 			prefix = qName.substring(0, idx);
 		} else {
-			prefix = qName;
+			//prefix = qName; //XXX this was here brefore why? schema validation might use it 
+			//no namespaces
+			prefix = null;
+			localName = qName;
 		}
 		histograms.peek().update(uri, localName, prefix);
 		histograms.push(new XpathHolder());

@@ -10,7 +10,10 @@ import java.util.Set;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLResolver;
 
+import org.xml.sax.EntityResolver;
+
 import com.anthavio.xml.JaxpAbstractFactory;
+import com.anthavio.xml.XMLResolverDelegator;
 
 /**
  * @author vanek
@@ -74,6 +77,17 @@ public class JaxpStaxInputFactory extends JaxpAbstractFactory<XMLInputFactory> {
 
 	public void setFactoryProperties(HashMap<String, Object> factoryProperties) {
 		this.factoryProperties = factoryProperties;
+	}
+
+	/**
+	 * Use SAX EntityResolver as StaX XMLResolver 
+	 * 
+	 */
+	public void setEntityResolver(EntityResolver resolver) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.RESOLVER, new XMLResolverDelegator(resolver));
 	}
 
 	public void setXmlResolver(XMLResolver resolver) {
