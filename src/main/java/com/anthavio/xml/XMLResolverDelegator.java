@@ -38,14 +38,44 @@ public class XMLResolverDelegator implements javax.xml.stream.XMLResolver {
 		return delegate;
 	}
 
+	/**
+	 * Stax uses relative systemID (for anything imported from DTD) but also provides baseURI (original DTD)
+	 * SAX uses absolute systemID (because it does not have baseURI parameter)
+	 * 
+	 * From Stax parameters we need to compute absolute systemID for underlying SAX EntityResolver
+	 * 
+	 * For initial DTD file parameters looks like
+	 * publicID: -//NPG//DTD XML Article//EN'
+	 * systemID: NPG_XML_Article.dtd
+	 * baseURI: file:/Devel/projects/macmillan/mlexperiment/
+	 * namespace: null
+	 * 
+	 * For imported Entity file parameters looks like
+	 * publicID: ISO 8879:1986//ENTITIES Numeric and Special Graphic//EN
+	 * systemID: XML_entities/ISOnum.ent
+	 * baseURI: file:/mnt/fs/web/NPG/dtd/npg_xml_dtd/NPG_XML_Article.dtd
+	 * namespace: ISOnum
+	 * 
+	 * TODO make it work this for XSD schemas
+	 */
 	@Override
 	public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace)
 			throws XMLStreamException {
 		try {
-			//System.out.println("resolve " + systemID);
+
 			InputSource source = delegate.resolveEntity(publicID, systemID);
 			if (source == null) {
-				return null;
+				String fileExtension = baseURI.substring(baseURI.length() - 4).toLowerCase();
+				//System.out.println(fileExtension);
+				if (fileExtension.equals(".xsd") || fileExtension.equals(".dtd")) {
+					systemID = baseURI.substring(0, baseURI.lastIndexOf('/') + 1) + systemID;
+				}
+				//System.out.println(systemID);
+				URL url = new URL(systemID);
+				return url.getContent();
+				//throw new XMLStreamException("Cannot resolve '" + publicID + "' '" + systemID + "' '" + baseURI + "' '"
+				//		+ namespace + "'");
+				//return null;
 			} else if (source.getByteStream() != null) {
 				return source.getByteStream();
 			} else if (source.getCharacterStream() != null) {

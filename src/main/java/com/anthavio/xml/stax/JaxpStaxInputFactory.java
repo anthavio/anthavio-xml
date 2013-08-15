@@ -117,4 +117,26 @@ public class JaxpStaxInputFactory extends JaxpAbstractFactory<XMLInputFactory> {
 		}
 		factoryProperties.put(XMLInputFactory.SUPPORT_DTD, supportDtd);
 	}
+
+	public void setExpandEntityReferences(boolean expandEntities) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, expandEntities);
+	}
+
+	public void setSupportExternalEntities(boolean supportExternal) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, supportExternal);
+	}
+
+	public void setNamespaceAware(boolean namespaceAware) {
+		if (factoryProperties == null) {
+			factoryProperties = new HashMap<String, Object>();
+		}
+		factoryProperties.put(XMLInputFactory.IS_NAMESPACE_AWARE, namespaceAware);
+
+	}
 }

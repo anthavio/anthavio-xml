@@ -4,6 +4,7 @@
 package com.anthavio.xml;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Stack;
 
@@ -22,6 +23,10 @@ public class Sax2IndentingWriter extends Sax2Writer {
 
 	public Sax2IndentingWriter(Writer writer, String encoding) {
 		super(writer, encoding);
+	}
+
+	public Sax2IndentingWriter(OutputStream stream, String encoding) {
+		super(stream, encoding);
 	}
 
 	public void setIndentStep(String s) {

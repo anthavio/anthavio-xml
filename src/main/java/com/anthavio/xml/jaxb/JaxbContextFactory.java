@@ -3,6 +3,7 @@
  */
 package com.anthavio.xml.jaxb;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -287,12 +288,26 @@ public class JaxbContextFactory {
 		this.marshallerProperties = marshallerProperties;
 	}
 
+	public void setMarshallerProperty(String name, Object value) {
+		if (marshallerProperties == null) {
+			marshallerProperties = new HashMap<String, Object>();
+		}
+		marshallerProperties.put(name, value);
+	}
+
 	public Map<String, Object> getUnmarshallerProperties() {
 		return unmarshallerProperties;
 	}
 
 	public void setUnmarshallerProperties(Map<String, Object> unmarshallerProperties) {
 		this.unmarshallerProperties = unmarshallerProperties;
+	}
+
+	public void setUnmarshallerProperty(String name, Object value) {
+		if (unmarshallerProperties == null) {
+			unmarshallerProperties = new HashMap<String, Object>();
+		}
+		unmarshallerProperties.put(name, value);
 	}
 
 	public XmlAdapter<?, ?> getXmlAdapter() {

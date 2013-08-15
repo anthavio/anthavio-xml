@@ -3,7 +3,7 @@
  */
 package com.anthavio.xml.test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.io.StringWriter;
 import java.math.BigDecimal;
@@ -26,8 +26,9 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import com.anthavio.log.ToStringBuilder;
+
 import com.anthavio.log.ToString;
+import com.anthavio.log.ToStringBuilder;
 import com.anthavio.xml.StringSource;
 
 /**
@@ -50,7 +51,7 @@ public class SimpleJaxbTest {
 		jaxbCtx.createMarshaller().marshal(obj1, out);
 		log.debug("\n" + out.toString());
 
-		JaxbTestClass obj2 = (JaxbTestClass)jaxbCtx.createUnmarshaller().unmarshal(new StringSource(out.toString()));
+		JaxbTestClass obj2 = (JaxbTestClass) jaxbCtx.createUnmarshaller().unmarshal(new StringSource(out.toString()));
 
 		assertThat(obj1.list).isEqualTo(obj2.list);
 		assertThat(obj1.map).isEqualTo(obj2.map);
@@ -112,11 +113,10 @@ public class SimpleJaxbTest {
 		private List<String> list = new ArrayList<String>();
 
 		@XmlElements({ //
-			@XmlElement(name = "integer", type = Integer.class),
-			@XmlElement(name = "double", type = Double.class),
-			@XmlElement(name = "bigInteger", type = BigInteger.class),
-			@XmlElement(name = "bigDecimal", type = BigDecimal.class)
-			//
+		@XmlElement(name = "integer", type = Integer.class), @XmlElement(name = "double", type = Double.class),
+				@XmlElement(name = "bigInteger", type = BigInteger.class),
+				@XmlElement(name = "bigDecimal", type = BigDecimal.class)
+		//
 		})
 		@XmlElementWrapper(name = "podtridy")
 		@ToString(detail = true)
@@ -146,5 +146,3 @@ public class SimpleJaxbTest {
 
 	}
 }
-
-

@@ -24,8 +24,13 @@ import com.anthavio.util.ResourceUtil;
  * 
  * SAX2 ContentHandler building DOM from SAX2 Events
  * 
- * Stolen 
+ * Copy of JAXB 
  * com.sun.xml.bind.marshaller.SAX2DOMEx
+ * 
+ * Other implementations
+ * org.apache.xalan.xsltc.trax.SAX2DOM
+ * com.sun.org.apache.xalan.internal.xsltc.trax.SAX2DOM
+ * 
  */
 public class Sax2DomContentHandler implements ContentHandler {
 

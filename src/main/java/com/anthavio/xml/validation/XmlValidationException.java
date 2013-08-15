@@ -2,12 +2,13 @@ package com.anthavio.xml.validation;
 
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import com.anthavio.xml.XmlParseException;
 
-
+/**
+ * 
+ * @author martin.vanek
+ *
+ */
 public class XmlValidationException extends XmlParseException {
 
 	private static final long serialVersionUID = 9166282786729649645L;
@@ -31,17 +32,17 @@ public class XmlValidationException extends XmlParseException {
 		if (events.size() == 1) {
 			return events.get(0).toString();
 		} else {
-			StringBuilder sb = new StringBuilder(events.size() + " errors");
+			StringBuilder sb = new StringBuilder(events.size() + " Errors");
 			for (ValidationEventImpl event : events) {
 				sb.append('\n').append(event.toString());
 			}
 			return sb.toString();
 		}
 	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-	}
-
+	/*
+		@Override
+		public String toString() {
+			return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+		}
+	*/
 }

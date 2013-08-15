@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
@@ -22,6 +24,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -79,6 +82,14 @@ public class SimpleJaxbBinder<T> {
 
 	public Class<T> getJaxbClass() {
 		return jaxbClass;
+	}
+
+	public T load(InputStream stream) {
+		return load(new StreamSource(stream));
+	}
+
+	public T load(Reader reader) {
+		return load(new StreamSource(reader));
 	}
 
 	public T load(Source source) {

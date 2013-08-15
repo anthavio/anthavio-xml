@@ -4,6 +4,7 @@
 package com.anthavio.xml;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
@@ -28,6 +29,11 @@ public class Sax2Writer extends XMLFilterImpl {
 
 	public Sax2Writer(Writer writer, String encoding) {
 		init(writer, encoding);
+		this.escapeHandler = DumbEscapeHandler.theInstance;
+	}
+
+	public Sax2Writer(OutputStream stream, String encoding) {
+		setOutput(new OutputStreamWriter(stream), encoding);
 		this.escapeHandler = DumbEscapeHandler.theInstance;
 	}
 

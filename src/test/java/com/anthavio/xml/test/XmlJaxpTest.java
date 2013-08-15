@@ -1,6 +1,6 @@
 package com.anthavio.xml.test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -56,38 +56,37 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 
+import com.anthavio.example.messages.PingRequest;
 import com.anthavio.xml.Dom2SaxEventGenerator;
 import com.anthavio.xml.JaxpDomFactory;
+import com.anthavio.xml.JaxpDomFactory.DomImplementation;
 import com.anthavio.xml.JaxpSaxFactory;
+import com.anthavio.xml.JaxpSaxFactory.SaxImplementation;
 import com.anthavio.xml.JaxpTraxFactory;
+import com.anthavio.xml.JaxpTraxFactory.TraxImplementation;
 import com.anthavio.xml.JaxpXpathFactory;
+import com.anthavio.xml.JaxpXpathFactory.XpathImplementation;
 import com.anthavio.xml.Sax2DomContentHandler;
 import com.anthavio.xml.Sax2IndentingWriter;
 import com.anthavio.xml.StringResult;
 import com.anthavio.xml.XPathSaxTracker;
 import com.anthavio.xml.XPathTracker;
-import com.anthavio.xml.JaxpDomFactory.DomImplementation;
-import com.anthavio.xml.JaxpSaxFactory.SaxImplementation;
-import com.anthavio.xml.JaxpTraxFactory.TraxImplementation;
-import com.anthavio.xml.JaxpXpathFactory.XpathImplementation;
 import com.anthavio.xml.jaxb.JaxbContextFactory;
 import com.anthavio.xml.jaxb.JaxbContextFactory.JaxbImplementation;
 import com.anthavio.xml.stax.Dom2StaxStreamReader;
 import com.anthavio.xml.stax.JaxpStaxFactory;
+import com.anthavio.xml.stax.JaxpStaxFactory.StaxImplementation;
 import com.anthavio.xml.stax.JaxpStaxInputFactory;
 import com.anthavio.xml.stax.Stax2SaxStreamReader;
 import com.anthavio.xml.stax.StaxIndentingStreamWriter;
 import com.anthavio.xml.stax.XPathEventTracker;
 import com.anthavio.xml.stax.XPathStreamTracker;
-import com.anthavio.xml.stax.JaxpStaxFactory.StaxImplementation;
 import com.anthavio.xml.validation.JaxpSchemaFactory;
+import com.anthavio.xml.validation.JaxpSchemaFactory.SchemaImplementation;
 import com.anthavio.xml.validation.SilentErrorHandler;
 import com.anthavio.xml.validation.ValidationEventImpl;
 import com.anthavio.xml.validation.XmlErrorHandler;
 import com.anthavio.xml.validation.XmlSchemaLoader;
-import com.anthavio.xml.validation.JaxpSchemaFactory.SchemaImplementation;
-
-import com.anthavio.example.messages.PingRequest;
 
 public class XmlJaxpTest {
 

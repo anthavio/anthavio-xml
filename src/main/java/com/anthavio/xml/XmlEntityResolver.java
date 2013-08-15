@@ -189,7 +189,7 @@ public class XmlEntityResolver implements javax.xml.stream.XMLResolver, org.xml.
 		if (stream != null) {
 			return new InputSource(stream);
 		} else {
-			return null;
+			throw new IllegalArgumentException("Cannot resolve " + publicId + " " + systemId);
 		}
 	}
 

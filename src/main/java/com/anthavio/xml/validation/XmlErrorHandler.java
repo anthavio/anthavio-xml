@@ -16,7 +16,6 @@ import org.xml.sax.SAXParseException;
 
 import com.anthavio.xml.XPathTracker;
 
-
 /**
  * @author vanek
  *
@@ -100,13 +99,18 @@ public class XmlErrorHandler implements ValidationEventHandler, ErrorHandler, Er
 		}
 	}
 
+	public ValidationEventImpl addSaxException(SAXParseException sx, int level) {
+		String xpath = (xpathTracker == null) ? null : xpathTracker.getXPath();
+		ValidationEventImpl event = new ValidationEventImpl(sx, level, xpath);
+		errors.add(event);
+		return event;
+	}
+
 	/**
 	 * org.xml.sax.ErrorHandler
 	 */
 	public void error(SAXParseException sx) throws SAXException {
-		String xpath = (xpathTracker == null) ? null : xpathTracker.getXPath();
-		ValidationEventImpl event = new ValidationEventImpl(sx, ValidationEvent.ERROR, xpath);
-		errors.add(event);
+		addSaxException(sx, ValidationEvent.ERROR);
 		if (failFast) {
 			throw sx;
 		}
@@ -116,9 +120,7 @@ public class XmlErrorHandler implements ValidationEventHandler, ErrorHandler, Er
 	 * org.xml.sax.ErrorHandler
 	 */
 	public void fatalError(SAXParseException sx) throws SAXException {
-		String xpath = (xpathTracker == null) ? null : xpathTracker.getXPath();
-		ValidationEventImpl event = new ValidationEventImpl(sx, ValidationEvent.FATAL_ERROR, xpath);
-		errors.add(event);
+		addSaxException(sx, ValidationEvent.FATAL_ERROR);
 		if (failFast) {
 			throw sx;
 		}

@@ -3,7 +3,7 @@
  */
 package com.anthavio.xml.test;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.io.FileReader;
 import java.io.StringWriter;
@@ -36,24 +36,23 @@ import org.w3c.dom.Document;
 import org.xml.sax.XMLReader;
 
 import com.anthavio.xml.JaxpDomFactory;
+import com.anthavio.xml.JaxpDomFactory.DomImplementation;
 import com.anthavio.xml.JaxpSaxFactory;
+import com.anthavio.xml.JaxpSaxFactory.SaxImplementation;
 import com.anthavio.xml.JaxpTraxFactory;
+import com.anthavio.xml.JaxpTraxFactory.TraxImplementation;
 import com.anthavio.xml.JaxpXpathFactory;
+import com.anthavio.xml.JaxpXpathFactory.XpathImplementation;
 import com.anthavio.xml.XPathSaxTracker;
 import com.anthavio.xml.XmlNamespaceContext;
-import com.anthavio.xml.JaxpDomFactory.DomImplementation;
-import com.anthavio.xml.JaxpSaxFactory.SaxImplementation;
-import com.anthavio.xml.JaxpTraxFactory.TraxImplementation;
-import com.anthavio.xml.JaxpXpathFactory.XpathImplementation;
 import com.anthavio.xml.jaxb.JaxbContextFactory;
 import com.anthavio.xml.jaxb.JaxbContextFactory.JaxbImplementation;
 import com.anthavio.xml.stax.JaxpStaxInputFactory;
 import com.anthavio.xml.stax.JaxpStaxInputFactory.StaxInputImplementation;
 import com.anthavio.xml.validation.JaxpSchemaFactory;
+import com.anthavio.xml.validation.JaxpSchemaFactory.SchemaImplementation;
 import com.anthavio.xml.validation.SilentErrorHandler;
 import com.anthavio.xml.validation.XmlSchemaLoader;
-import com.anthavio.xml.validation.JaxpSchemaFactory.SchemaImplementation;
-
 
 /**
  * @author vanek

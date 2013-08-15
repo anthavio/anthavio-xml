@@ -44,16 +44,28 @@ public class JaxpDomFactory extends JaxpAbstractFactory<DocumentBuilderFactory> 
 
 	//private DomImplementation implementation = DomImplementation.JDK;
 
+	/**
+	 * To convert CDATA nodes to Text node and append to an adjacent Text node (if any).
+	 */
 	private boolean coalescing = false;
 
+	/**
+	 * To expand entity reference nodes.
+	 */
 	private boolean expandEntityReferences = true;
 
 	private boolean ignoringComments = false;
 
+	/**
+	 * To ignore whitespace that is not a significant part of element content.
+	 */
 	private boolean ignoringElementContentWhitespace = false;
 
 	private boolean namespaceAware = true;
 
+	/**
+	 * Use XML document specified XSD/DTD for validation
+	 */
 	private boolean validating = false;
 
 	private boolean xIncludeAware = false;
