@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<same:ElementOne xmlns:same="http://example.anthavio.com/same" >
+<same:ElementOne xmlns:same="http://example.anthavio.net/same" >
 	<same:Something>Cokoliv</same:Something>
 </same:ElementOne>

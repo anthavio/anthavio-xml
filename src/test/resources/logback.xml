@@ -3,7 +3,7 @@
 <!--
 	<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
 -->
-	<appender name="EVENTSTORE" class="com.anthavio.xml.test.EventStoringAppender"/>
+	<appender name="EVENTSTORE" class="net.anthavio.xml.test.EventStoringAppender"/>
 
 	<appender name="LOGFILE" class="ch.qos.logback.core.FileAppender">
 		<File>target/anthavio-xml.log</File>
@@ -29,7 +29,7 @@
 		-->
 	</appender>
 
-	<logger name="com.anthavio">
+	<logger name="net.anthavio">
 		<level value="debug"/>
 	</logger>
 	

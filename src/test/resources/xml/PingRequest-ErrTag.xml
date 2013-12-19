@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<exmsg:PingRequest xmlns:exmsg="http://example.anthavio.com/messages" xmlns:exdt="http://example.anthavio.com/types">
+<exmsg:PingRequest xmlns:exmsg="http://example.anthavio.net/messages" xmlns:exdt="http://example.anthavio.net/types">
 <exmsg:pingData><!--comment-->
 <exdt:version><boom1>boom1</boom1></exdt:version>
 <exdt:boom2>boom2</exdt:boom2>

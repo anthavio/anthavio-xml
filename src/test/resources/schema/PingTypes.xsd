@@ -2,8 +2,8 @@
 <schema 
 	xmlns="http://www.w3.org/2001/XMLSchema"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
-	xmlns:exdtp="http://example.anthavio.com/types"
-	targetNamespace="http://example.anthavio.com/types" elementFormDefault="qualified">
+	xmlns:exdtp="http://example.anthavio.net/types"
+	targetNamespace="http://example.anthavio.net/types" elementFormDefault="qualified">
 
 	<!-- XSD pro complexType pouzitych v messages XSD -->
 	

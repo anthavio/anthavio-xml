@@ -2,14 +2,14 @@
 <wsdl:definitions 
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:exmsg="http://example.anthavio.com/messages"
-	xmlns:exsvc="http://example.anthavio.com/services" 
-	targetNamespace="http://example.anthavio.com/services"
+	xmlns:exmsg="http://example.anthavio.net/messages"
+	xmlns:exsvc="http://example.anthavio.net/services" 
+	targetNamespace="http://example.anthavio.net/services"
 	name="PingService">
 	
   <wsdl:types>
   	<schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
-			<import namespace="http://example.anthavio.com/messages" schemaLocation="PingMessages.xsd" />
+			<import namespace="http://example.anthavio.net/messages" schemaLocation="PingMessages.xsd" />
 		</schema>
   </wsdl:types>
   

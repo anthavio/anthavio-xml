@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://example.anthavio.com/samens"
+	targetNamespace="http://example.anthavio.net/samens"
 	elementFormDefault="qualified">
 
 	<element name="ElementTwo">
