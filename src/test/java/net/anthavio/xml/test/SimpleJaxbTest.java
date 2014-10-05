@@ -3,7 +3,7 @@
  */
 package net.anthavio.xml.test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.StringWriter;
 import java.math.BigDecimal;
@@ -25,9 +25,9 @@ import net.anthavio.log.ToString;
 import net.anthavio.log.ToStringBuilder;
 import net.anthavio.xml.StringSource;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 

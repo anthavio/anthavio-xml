@@ -15,16 +15,14 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 
 import net.anthavio.xml.JaxpTraxFactory;
-import net.anthavio.xml.XmlParser;
 import net.anthavio.xml.JaxpTraxFactory.TraxImplementation;
+import net.anthavio.xml.XmlParser;
 import net.anthavio.xml.validation.JaxpSchemaFactory;
-import net.anthavio.xml.validation.XmlSchemaLoader;
 import net.anthavio.xml.validation.JaxpSchemaFactory.SchemaImplementation;
+import net.anthavio.xml.validation.XmlSchemaLoader;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 import org.w3c.dom.Document;
-
-
 
 /**
  * @author vanek

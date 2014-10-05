@@ -1,6 +1,6 @@
 package net.anthavio.xml.test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -77,7 +77,7 @@ import net.anthavio.xml.validation.ValidationEventImpl;
 import net.anthavio.xml.validation.XmlErrorHandler;
 import net.anthavio.xml.validation.XmlSchemaLoader;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;

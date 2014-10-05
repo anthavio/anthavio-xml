@@ -3,7 +3,7 @@
  */
 package net.anthavio.xml.test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.FileReader;
 import java.io.StringWriter;
@@ -50,7 +50,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.DOMOutputter;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-import org.testng.annotations.Test;
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.XMLReader;
 
